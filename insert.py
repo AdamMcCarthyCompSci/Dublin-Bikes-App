@@ -24,7 +24,9 @@ dynamicData = Table(
     Column('bike_stands', Integer),
     Column('available_bike_stands', Integer),
     Column('available_bikes', Integer),
-    Column('last_update', DateTime)
+    Column('last_update', DateTime),
+    Column('weather', String(30)),
+    Column('temp', String(30))
 )
 
 meta.create_all(conn)
@@ -47,6 +49,11 @@ iterator = 0
 r = requests.get(STATIONS_URI, params = {"apiKey": KEY, "contract": NAME})
 JSON(r.json())
 
+weatherNAME = "7778677"
+weatherKEY = "b5082b06a1653481cc7a8a9a533aafc3"
+weatherUNITS = "metric"
+weatherURI = "https://api.openweathermap.org/data/2.5/weather?id={}&appid={}&units={}".format(weatherNAME, weatherKEY, weatherUNITS)
+
 while True:
         try:
                 print('Starting Loop')
@@ -54,8 +61,19 @@ while True:
                 JSON(r.json())
                 print('request to map')
                 values = list(map(get_station, r.json()))
+
+
+
+                w = requests.get(weatherURI)
+                data = json.loads(w.text)
+                weather = data["weather"][0]["main"]
+                temp = data["main"]["temp"]
+                JSON(w.json())
                 for value in values:
                         value['Insert_ID'] = iterator
+                        value['weather'] = weather
+                        value['temp'] = temp
+
                 print('map to insert')
                 ins = dynamicData.insert().values(values)
                 print('insert to execute')
