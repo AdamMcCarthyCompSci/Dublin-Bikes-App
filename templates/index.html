@@ -1,0 +1,26 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Flask App</title>
+  <meta name="description" content="First index.html">
+  <meta name="author" content="Adam">
+
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+  <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+
+<body>
+  <div id="header">Header</div>
+  <div id="map"></div>
+
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initMap&libraries=&v=weekly"
+async
+></script>
+</body>
+</html>
