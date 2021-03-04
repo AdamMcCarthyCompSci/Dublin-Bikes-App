@@ -2,12 +2,12 @@ let map;
 
 changeCircleColour = (bikes) => {
   if (bikes == 0) {
-    return "#a83e32";
+    return "#8b1a00";
   }
   if (bikes < 5) {
-    return "#a66234";
+    return "#d25c00";
   } else {
-    return "#3256cc";
+    return "#0877ff";
   }
 };
 
@@ -145,6 +145,26 @@ function initMap() {
           //     "<h1>" + station.name + "</h1><b>" + station.bike_stands + "</b>",
           // });
           // infowindow.open(map, Circle);
+        });
+        Circle.addListener("mouseover", () => {
+          if (station.available_bikes == 0) {
+            Circle.setOptions({ fillColor: "#d72800", strokeColor: "#d72800" });
+          }
+          if (station.available_bikes < 5) {
+            Circle.setOptions({ fillColor: "#ff9441", strokeColor: "#ff9441" });
+          } else {
+            Circle.setOptions({ fillColor: "#6eafff", strokeColor: "#6eafff" });
+          }
+        });
+        Circle.addListener("mouseout", () => {
+          if (station.available_bikes == 0) {
+            Circle.setOptions({ fillColor: "#8b1a00", strokeColor: "#8b1a00" });
+          }
+          if (station.available_bikes < 5) {
+            Circle.setOptions({ fillColor: "#d25c00", strokeColor: "#d25c00" });
+          } else {
+            Circle.setOptions({ fillColor: "#0877ff", strokeColor: "#0877ff" });
+          }
         });
       });
     })
