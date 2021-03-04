@@ -28,6 +28,8 @@ function initMap() {
           },
           strictBounds: false,
         },
+        streetViewControl: false,
+        mapTypeControl: false,
         zoom: 14,
         styles: [
           { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -135,7 +137,8 @@ function initMap() {
           fillOpacity: 0.35,
           map: map,
           center: { lat: station.pos_lat, lng: station.pos_lng },
-          radius: 30 + station.available_bikes * 5,
+          // radius: 10 + station.available_bikes * 5,
+          radius: 60,
           clickable: true,
         });
         Circle.addListener("click", () => {
@@ -165,6 +168,28 @@ function initMap() {
           } else {
             Circle.setOptions({ fillColor: "#0877ff", strokeColor: "#0877ff" });
           }
+        });
+
+        let Marker = new google.maps.Marker({
+          position: { lat: station.pos_lat, lng: station.pos_lng },
+          map: map,
+          label: {
+            text: station.available_bikes.toString(),
+            color: "white",
+            // fontSize: "14px",
+          },
+          icon: {
+            url:
+              "https://icon-library.com/images/circle-icon-png/circle-icon-png-11.jpg",
+            size: new google.maps.Size(0, 0),
+            // origin: new google.maps.Point(0, 0),
+            // anchor: new google.maps.Point(0, 0),
+          },
+          // symbol: {
+          //   fillColor: "#0877ff",
+          //   strokeColor: "#0877ff",
+          //   scale: 0.01,
+          // },
         });
       });
     })
