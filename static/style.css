@@ -15,7 +15,32 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: white;
+  color: black;
+  font-size: 25px;
 }
 #map {
   height: 100%;
+}
+
+.dark-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400");
+body {
+  background: #2d3142;
+  font-family: "Raleway", sans-serif;
+}
+
+#darkToggleButton {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+button:focus {
+  outline: 0;
 }

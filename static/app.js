@@ -31,98 +31,7 @@ function initMap() {
         streetViewControl: false,
         mapTypeControl: false,
         zoom: 14,
-        styles: [
-          { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-          {
-            elementType: "labels.text.stroke",
-            stylers: [{ color: "#242f3e" }],
-          },
-          { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-          {
-            featureType: "administrative.locality",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#d59563" }],
-          },
-          {
-            featureType: "poi",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#d59563" }],
-          },
-          {
-            featureType: "poi.park",
-            elementType: "geometry",
-            stylers: [{ color: "#263c3f" }],
-          },
-          {
-            featureType: "poi.park",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#6b9a76" }],
-          },
-          {
-            featureType: "road",
-            elementType: "geometry",
-            stylers: [{ color: "#38414e" }],
-          },
-          {
-            featureType: "road",
-            elementType: "geometry.stroke",
-            stylers: [{ color: "#212a37" }],
-          },
-          {
-            featureType: "road",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#9ca5b3" }],
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry",
-            stylers: [{ color: "#746855" }],
-          },
-          {
-            featureType: "road.highway",
-            elementType: "geometry.stroke",
-            stylers: [{ color: "#1f2835" }],
-          },
-          {
-            featureType: "road.highway",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#f3d19c" }],
-          },
-          {
-            featureType: "transit",
-            elementType: "geometry",
-            stylers: [{ color: "#2f3948" }],
-          },
-          {
-            featureType: "transit.station",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#d59563" }],
-          },
-          {
-            featureType: "water",
-            elementType: "geometry",
-            stylers: [{ color: "#17263c" }],
-          },
-          {
-            featureType: "water",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#515c6d" }],
-          },
-          {
-            featureType: "water",
-            elementType: "labels.text.stroke",
-            stylers: [{ color: "#17263c" }],
-          },
-          {
-            featureType: "poi",
-            stylers: [{ visibility: "off" }],
-          },
-          // {
-          //   featureType: "transit",
-          //   elementType: "labels.icon",
-          //   stylers: [{ visibility: "off" }],
-          // },
-        ],
+        styles: darkMap,
       });
 
       // const bikeLayer = new google.maps.BicyclingLayer();
@@ -137,7 +46,6 @@ function initMap() {
           fillOpacity: 0.35,
           map: map,
           center: { lat: station.pos_lat, lng: station.pos_lng },
-          // radius: 10 + station.available_bikes * 5,
           radius: 60,
           clickable: true,
         });
@@ -176,20 +84,12 @@ function initMap() {
           label: {
             text: station.available_bikes.toString(),
             color: "white",
-            // fontSize: "14px",
           },
           icon: {
             url:
               "https://icon-library.com/images/circle-icon-png/circle-icon-png-11.jpg",
             size: new google.maps.Size(0, 0),
-            // origin: new google.maps.Point(0, 0),
-            // anchor: new google.maps.Point(0, 0),
           },
-          // symbol: {
-          //   fillColor: "#0877ff",
-          //   strokeColor: "#0877ff",
-          //   scale: 0.01,
-          // },
         });
       });
     })
@@ -197,4 +97,32 @@ function initMap() {
     .catch((err) => {
       console.log("Error!", err);
     });
+}
+
+var darkToggle = false;
+
+function toggleDarkMode() {
+  var element = document.body;
+  darkToggle = !darkToggle;
+  element.classList.toggle("dark-mode");
+  if (darkToggle) {
+    let darkToggle = document.getElementsByClassName("darkToggle");
+    for (var i = 0; i < darkToggle.length; i++) {
+      darkToggle[i].style.fill = "#ffffff";
+    }
+    document.getElementById("darkToggleButton").style.backgroundColor =
+      "#2d3142";
+    document.getElementById("darkToggleButton").style.borderColor = "#2d3142";
+    var mapOptions = { styles: [] };
+  } else {
+    var mapOptions = { styles: darkMap };
+    let darkToggle = document.getElementsByClassName("darkToggle");
+    for (var i = 0; i < darkToggle.length; i++) {
+      darkToggle[i].style.fill = "#2d3142";
+    }
+    document.getElementById("darkToggleButton").style.backgroundColor =
+      "#ffffff";
+    document.getElementById("darkToggleButton").style.borderColor = "#ffffff";
+  }
+  map.setOptions(mapOptions);
 }

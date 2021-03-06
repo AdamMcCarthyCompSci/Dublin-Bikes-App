@@ -10,11 +10,41 @@
 
   <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='nightModeToggle.css') }}" />
+  <script type="text/javascript" src="{{ url_for('static', filename='darkMode.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='nightModeToggle.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='mapStyle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 </head>
 
 <body>
-  <div id="header">Header</div>
+
+  
+<!-- Icons made by https://www.freepik.com from https://www.flaticon.com/ -->
+<button onclick="toggleDarkMode()" id="darkToggleButton"><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  width="100%" height="100%" viewBox="0 0 550.121 550.121"
+  xml:space="preserve">
+ <g>
+   <path class="darkToggle" d="M208.925,66.139v54.646c0,5.915,4.795,10.71,10.71,10.71s10.71-4.795,10.71-10.71V66.139c0-5.915-4.795-10.71-10.71-10.71
+     S208.925,60.224,208.925,66.139z"/>
+   <path class="darkToggle" d="M219.635,418.626c-5.915,0-10.71,4.795-10.71,10.711v54.645c0,5.916,4.795,10.711,10.71,10.711s10.71-4.795,10.71-10.711
+     v-54.645C230.345,423.421,225.55,418.626,219.635,418.626z"/>
+   <path class="darkToggle" d="M76.065,275.06c0-5.915-4.795-10.71-10.71-10.71H10.71C4.795,264.35,0,269.145,0,275.06c0,5.916,4.795,10.71,10.71,10.71
+     h54.646C71.271,285.771,76.065,280.976,76.065,275.06z"/>
+   <path class="darkToggle" d="M102.969,376.579L64.331,415.22c-4.183,4.18-4.183,10.965,0,15.145c2.09,2.094,4.832,3.137,7.573,3.137
+     s5.484-1.047,7.574-3.137l38.639-38.643c4.183-4.18,4.183-10.963,0-15.143C113.936,372.396,107.152,372.396,102.969,376.579z"/>
+   <path class="darkToggle" d="M64.331,119.756c-4.183,4.18-4.183,10.964,0,15.144l38.639,38.642c2.093,2.093,4.832,3.137,7.573,3.137
+     s5.483-1.047,7.574-3.137c4.183-4.18,4.183-10.964,0-15.144l-38.639-38.642C75.294,115.576,68.514,115.573,64.331,119.756z"/>
+   <path class="darkToggle" d="M256.232,156.387c-11.35-3.406-23.37-5.257-35.827-5.257c-68.768,0-124.515,55.747-124.515,124.515
+     c0,68.767,55.747,124.515,124.515,124.515c13.137,0,25.79-2.047,37.678-5.816c-28.632-31.852-46.093-73.945-46.093-120.048
+     C211.991,229.209,228.714,187.979,256.232,156.387z"/>
+   <path class="darkToggle" d="M391.766,115.94c-45.016,0-85.613,18.816-114.443,48.972c-27.183,28.431-43.912,66.941-43.912,109.383
+     c0,43.343,17.43,82.604,45.644,111.198c28.715,29.104,68.598,47.156,112.711,47.156c87.457,0,158.355-70.896,158.355-158.354
+     C550.121,186.837,479.223,115.94,391.766,115.94z"/>
+ </g>
+</svg></button>
+
+  <!-- <div id="header">Header</div> -->
   <div id="map"></div>
 
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
