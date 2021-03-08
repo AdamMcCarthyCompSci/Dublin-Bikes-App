@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dropdown</title>
+</head>
+<body>
+
+<p style="font-family:verdana">
+Choose Stations:<SELECT name="stations" style="font-family:verdana" method="GET" action="/">
+{% for s in stands %}
+  <OPTION value={{s[0]}}>{{s[1]}}</OPTION>
+{% endfor %}
+</SELECT>
+</p>
+
+</body>
+</html>
