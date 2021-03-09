@@ -91,4 +91,9 @@ const darkMap = [
   // },
 ];
 
-const lightMap = [];
+const lightMap = [
+  {
+    featureType: "poi",
+    stylers: [{ visibility: "off" }],
+  },
+];

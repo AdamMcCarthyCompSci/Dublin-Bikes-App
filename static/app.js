@@ -140,7 +140,7 @@ function toggleDarkMode() {
       }
     }
 
-    var mapOptions = { styles: [] };
+    var mapOptions = { styles: lightMap };
   } else {
     var mapOptions = { styles: darkMap };
     let darkToggle = document.getElementsByClassName("darkToggle");
