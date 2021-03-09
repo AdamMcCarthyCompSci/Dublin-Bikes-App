@@ -2,11 +2,11 @@
        * element that contains the map. */
 
 #header {
-  height: 10%;
+  height: 0%;
 }
 
 #map {
-  height: 90%;
+  height: 100%;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -15,8 +15,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: white;
-  color: black;
+  background-color: #ffffff;
+  color: #000000;
   font-size: 25px;
 }
 #map {
@@ -34,13 +34,55 @@ body {
   font-family: "Raleway", sans-serif;
 }
 
-#darkToggleButton {
+.darkToggleButton {
   width: 50px;
   height: 50px;
   text-align: center;
-  border-radius: 50%;
+  border-color: #ffffff;
+  background-color: #ffffff;
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+}
+
+#darkButton {
+  border-radius: 20%;
+  right: 5%;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* Fix initial svg colour */
+.darkToggle {
+  fill: "#2d3142";
 }
 
 button:focus {
   outline: 0;
+}
+
+#bikeButton {
+  border-top-left-radius: 20%;
+  border-bottom-left-radius: 20%;
+  border-color: #ffffff;
+  background-color: #ffffff;
+  position: absolute;
+  z-index: 10;
+  margin-top: 5px;
+  margin-left: 10px;
+  height: 60px;
+  cursor: pointer;
+}
+
+#parkingButton {
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 20%;
+  border-color: gray;
+  background-color: gray;
+  position: absolute;
+  z-index: 10;
+  left: 50px;
+  margin-top: 10px;
+  margin-left: 10px;
+  cursor: pointer;
 }
