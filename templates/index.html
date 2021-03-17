@@ -10,6 +10,11 @@
 
   <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='popup.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='map.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='grid.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='darkMode.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bikeParkingToggle.css') }}" />
   <script type="text/javascript" src="{{ url_for('static', filename='mapStyle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='bikeParkingToggle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='darkMode.js') }}"></script>
@@ -17,8 +22,8 @@
 </head>
 
 <body>
-
-  
+  <div class="grid-container">
+<div id="map-grid">
 <!-- Icons made by https://www.freepik.com from https://www.flaticon.com/ -->
 <button onclick="toggleDarkMode()" class="darkToggleButton" id="darkButton" onmouseover="darkToggleMouseOver('darkButton')" onmouseleave="darkToggleMouseLeave('darkButton')">
   <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -63,6 +68,9 @@
   <!-- <div id="header">Header</div> -->
   <div id="map"></div>
   <div id="content"></div>
+</div>
+<div id="chart-grid">Charts</div>
+</div>
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 <script
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initMap&libraries=&v=weekly"
