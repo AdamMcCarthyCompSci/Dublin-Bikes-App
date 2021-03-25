@@ -1,10 +1,13 @@
 let map, popup, Popup;
 
 changeCircleColour = (bikes) => {
-  if (bikes == 0) {
+  if (bikes <= 1) {
     return "#8b1a00";
   }
-  if (bikes < 5) {
+  if (bikes <= 3) {
+    return "#F5BB00";
+  }
+  if (bikes <= 5) {
     return "#d25c00";
   } else {
     return "#0877ff";
