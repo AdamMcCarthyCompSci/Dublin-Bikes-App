@@ -5,10 +5,10 @@ changeCircleColour = (bikes) => {
     return "#8b1a00";
   }
   if (bikes <= 3) {
-    return "#F5BB00";
+    return "#d25c00";
   }
   if (bikes <= 5) {
-    return "#d25c00";
+    return "#F5BB00";
   } else {
     return "#0877ff";
   }
@@ -136,21 +136,23 @@ fetch("/stations")
         popup.setMap(map);
       });
       Circle.addListener("mouseover", () => {
-        if (station[markerToggle] == 0) {
+        if (station[markerToggle] <= 1) {
           Circle.setOptions({ fillColor: "#d72800", strokeColor: "#d72800" });
-        }
-        if (station[markerToggle] < 5) {
+        } else if (station[markerToggle] <= 3) {
           Circle.setOptions({ fillColor: "#ff9441", strokeColor: "#ff9441" });
+        } else if (station[markerToggle] <= 5) {
+          Circle.setOptions({ fillColor: "#FFE89E", strokeColor: "#FFE89E" });
         } else {
           Circle.setOptions({ fillColor: "#6eafff", strokeColor: "#6eafff" });
         }
       });
       Circle.addListener("mouseout", () => {
-        if (station[markerToggle] == 0) {
+        if (station[markerToggle] <= 1) {
           Circle.setOptions({ fillColor: "#8b1a00", strokeColor: "#8b1a00" });
-        }
-        if (station[markerToggle] < 5) {
+        } else if (station[markerToggle] <= 3) {
           Circle.setOptions({ fillColor: "#d25c00", strokeColor: "#d25c00" });
+        } else if (station[markerToggle] <= 5) {
+          Circle.setOptions({ fillColor: "#F5BB00", strokeColor: "#F5BB00" });
         } else {
           Circle.setOptions({ fillColor: "#0877ff", strokeColor: "#0877ff" });
         }
