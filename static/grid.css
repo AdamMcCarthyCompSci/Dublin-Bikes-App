@@ -1,0 +1,21 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+  }
+  
+  #map-grid {
+    display: grid;
+    position: absolute;
+    grid-column: 1 / -1;
+    /* grid-row: 2 / 10; */
+    height: 70%;
+    width: 100%;
+  }
+  
+  #chart-grid {
+    display: grid;
+    position: absolute;
+    top: 70%;
+    grid-column: 1 / -1;
+    /* grid-row: 10 / 15; */
+  }

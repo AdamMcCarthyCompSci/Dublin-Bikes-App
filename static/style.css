@@ -1,0 +1,27 @@
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+#header {
+  height: 0%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #2d3142;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+  /* background: #2d3142; */
+  font-family: "Roboto", sans-serif;
+}
+
+button:focus {
+  outline: 0;
+}

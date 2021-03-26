@@ -1,0 +1,25 @@
+#bikeButton {
+    border-top-left-radius: 20%;
+    border-bottom-left-radius: 20%;
+    border-color: #ffffff;
+    background-color: #ffffff;
+    position: absolute;
+    z-index: 10;
+    margin-top: 5px;
+    margin-left: 10px;
+    height: 60px;
+    cursor: pointer;
+  }
+  
+  #parkingButton {
+    border-top-right-radius: 20%;
+    border-bottom-right-radius: 20%;
+    border-color: gray;
+    background-color: gray;
+    position: absolute;
+    z-index: 10;
+    left: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+  }

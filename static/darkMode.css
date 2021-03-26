@@ -1,0 +1,27 @@
+.darkToggleButton {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-color: #ffffff;
+  background-color: #ffffff;
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+}
+
+#darkButton {
+  border-radius: 20%;
+  right: 5%;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+/* Fix initial svg colour */
+.darkToggle {
+  fill: "#2d3142";
+}
+
+.dark-mode {
+  background-color: #ffffff;
+  color: #2d3142;
+}
