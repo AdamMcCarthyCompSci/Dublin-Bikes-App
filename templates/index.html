@@ -15,10 +15,12 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='grid.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='darkMode.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bikeParkingToggle.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='charts.css') }}" />
   <script type="text/javascript" src="{{ url_for('static', filename='mapStyle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='bikeParkingToggle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='darkMode.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -69,11 +71,13 @@
   <div id="map"></div>
   <div id="content"></div>
 </div>
-<div id="chart-grid">Charts</div>
+<div id="chart-grid">Charts
+  <div id="chart_div"></div>
+</div>
 </div>
 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 <script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initMap&libraries=&v=weekly"
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initCharts&libraries=&v=weekly"
 async
 ></script>
 </body>

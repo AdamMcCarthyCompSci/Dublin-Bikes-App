@@ -14,6 +14,11 @@ changeCircleColour = (bikes) => {
   }
 };
 
+function initCharts() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+  google.charts.setOnLoadCallback(initMap);
+}
+
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 53.345804, lng: -6.26031 },
@@ -116,6 +121,10 @@ fetch("/stations")
       });
 
       Circle.addListener("click", () => {
+
+        console.log("calling drawOccupancyWeekly" + station.number);
+        drawOccupancyWeekly(station.number);
+
         document.getElementById(
           "content"
         ).innerHTML = `<h1 class="popupHead">${station.name}<h1>
@@ -181,3 +190,32 @@ fetch("/stations")
   .catch((err) => {
     console.log("Error!", err);
   });
+
+drawOccupancyWeekly = (station_number) => {
+  // this is called when the user clicks on the marker
+  // use google charts to draw a chart at the bottom of the page
+
+  fetch("/occupancy/" + station_number)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+
+      let options = {
+        title: "Bike Availability per day",
+        // width: 300,
+        // height: 400
+      };
+      let chart = new google.visualization.ColumnChart(
+        document.getElementById("chart_div")
+      );
+      let chart_data = new google.visualization.DataTable();
+      chart_data.addColumn("datetime", "Date");
+      chart_data.addColumn("number", "Bike Availability");
+      data.forEach((v) => {
+        chart_data.addRow([new Date(v.last_update), v.available_bikes]);
+      });
+      chart.draw(chart_data, options);
+    });
+};

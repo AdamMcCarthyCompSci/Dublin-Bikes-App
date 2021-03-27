@@ -17,5 +17,7 @@
     position: absolute;
     top: 70%;
     grid-column: 1 / -1;
+    /* height: 30%; */
+    width: 50%;
     /* grid-row: 10 / 15; */
   }
