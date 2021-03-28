@@ -14,6 +14,12 @@ changeCircleColour = (bikes) => {
   }
 };
 
+function initCharts() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+  google.charts.setOnLoadCallback(initMap);
+}
+let activeStation = null;
+
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 53.345804, lng: -6.26031 },
@@ -49,8 +55,6 @@ fetch("/stations")
   })
   .then((data) => {
     let stationData = data;
-    // const bikeLayer = new google.maps.BicyclingLayer();
-    // bikeLayer.setMap(map);
 
     data.forEach((station) => {
       class Popup extends google.maps.OverlayView {
@@ -116,6 +120,15 @@ fetch("/stations")
       });
 
       Circle.addListener("click", () => {
+
+        if (typeof chartOptions == 'undefined') {
+        drawOccupancyWeekly(station.number);
+        }
+        else {
+          drawOccupancyWeekly(station.number, chartOptions)
+        }
+        activeStation = station.number;
+
         document.getElementById(
           "content"
         ).innerHTML = `<h1 class="popupHead">${station.name}<h1>

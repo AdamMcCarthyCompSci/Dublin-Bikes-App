@@ -1,6 +1,7 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
 
@@ -15,66 +16,79 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='grid.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='darkMode.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bikeParkingToggle.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='charts.css') }}" />
   <script type="text/javascript" src="{{ url_for('static', filename='mapStyle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='bikeParkingToggle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='darkMode.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='charts.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='chartStyle.js') }}"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
   <div class="grid-container">
-<div id="map-grid">
-<!-- Icons made by https://www.freepik.com from https://www.flaticon.com/ -->
-<button onclick="toggleDarkMode()" class="darkToggleButton" id="darkButton" onmouseover="darkToggleMouseOver('darkButton')" onmouseleave="darkToggleMouseLeave('darkButton')">
-  <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-  width="100%" height="100%" viewBox="0 0 550.121 550.121"
-  xml:space="preserve">
- <g>
-   <path class="darkToggle" d="M208.925,66.139v54.646c0,5.915,4.795,10.71,10.71,10.71s10.71-4.795,10.71-10.71V66.139c0-5.915-4.795-10.71-10.71-10.71
-     S208.925,60.224,208.925,66.139z"/>
-   <path class="darkToggle" d="M219.635,418.626c-5.915,0-10.71,4.795-10.71,10.711v54.645c0,5.916,4.795,10.711,10.71,10.711s10.71-4.795,10.71-10.711
-     v-54.645C230.345,423.421,225.55,418.626,219.635,418.626z"/>
-   <path class="darkToggle" d="M76.065,275.06c0-5.915-4.795-10.71-10.71-10.71H10.71C4.795,264.35,0,269.145,0,275.06c0,5.916,4.795,10.71,10.71,10.71
-     h54.646C71.271,285.771,76.065,280.976,76.065,275.06z"/>
-   <path class="darkToggle" d="M102.969,376.579L64.331,415.22c-4.183,4.18-4.183,10.965,0,15.145c2.09,2.094,4.832,3.137,7.573,3.137
-     s5.484-1.047,7.574-3.137l38.639-38.643c4.183-4.18,4.183-10.963,0-15.143C113.936,372.396,107.152,372.396,102.969,376.579z"/>
-   <path class="darkToggle" d="M64.331,119.756c-4.183,4.18-4.183,10.964,0,15.144l38.639,38.642c2.093,2.093,4.832,3.137,7.573,3.137
-     s5.483-1.047,7.574-3.137c4.183-4.18,4.183-10.964,0-15.144l-38.639-38.642C75.294,115.576,68.514,115.573,64.331,119.756z"/>
-   <path class="darkToggle" d="M256.232,156.387c-11.35-3.406-23.37-5.257-35.827-5.257c-68.768,0-124.515,55.747-124.515,124.515
+    <div id="map-grid">
+      <!-- Icons made by https://www.freepik.com from https://www.flaticon.com/ -->
+      <button onclick="toggleDarkMode()" class="darkToggleButton" id="darkButton"
+        onmouseover="darkToggleMouseOver('darkButton')" onmouseleave="darkToggleMouseLeave('darkButton')">
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" width="100%" height="100%" viewBox="0 0 550.121 550.121" xml:space="preserve">
+          <g>
+            <path class="darkToggle" d="M208.925,66.139v54.646c0,5.915,4.795,10.71,10.71,10.71s10.71-4.795,10.71-10.71V66.139c0-5.915-4.795-10.71-10.71-10.71
+     S208.925,60.224,208.925,66.139z" />
+            <path class="darkToggle" d="M219.635,418.626c-5.915,0-10.71,4.795-10.71,10.711v54.645c0,5.916,4.795,10.711,10.71,10.711s10.71-4.795,10.71-10.711
+     v-54.645C230.345,423.421,225.55,418.626,219.635,418.626z" />
+            <path class="darkToggle" d="M76.065,275.06c0-5.915-4.795-10.71-10.71-10.71H10.71C4.795,264.35,0,269.145,0,275.06c0,5.916,4.795,10.71,10.71,10.71
+     h54.646C71.271,285.771,76.065,280.976,76.065,275.06z" />
+            <path class="darkToggle"
+              d="M102.969,376.579L64.331,415.22c-4.183,4.18-4.183,10.965,0,15.145c2.09,2.094,4.832,3.137,7.573,3.137
+     s5.484-1.047,7.574-3.137l38.639-38.643c4.183-4.18,4.183-10.963,0-15.143C113.936,372.396,107.152,372.396,102.969,376.579z" />
+            <path class="darkToggle"
+              d="M64.331,119.756c-4.183,4.18-4.183,10.964,0,15.144l38.639,38.642c2.093,2.093,4.832,3.137,7.573,3.137
+     s5.483-1.047,7.574-3.137c4.183-4.18,4.183-10.964,0-15.144l-38.639-38.642C75.294,115.576,68.514,115.573,64.331,119.756z" />
+            <path class="darkToggle" d="M256.232,156.387c-11.35-3.406-23.37-5.257-35.827-5.257c-68.768,0-124.515,55.747-124.515,124.515
      c0,68.767,55.747,124.515,124.515,124.515c13.137,0,25.79-2.047,37.678-5.816c-28.632-31.852-46.093-73.945-46.093-120.048
-     C211.991,229.209,228.714,187.979,256.232,156.387z"/>
-   <path class="darkToggle" d="M391.766,115.94c-45.016,0-85.613,18.816-114.443,48.972c-27.183,28.431-43.912,66.941-43.912,109.383
+     C211.991,229.209,228.714,187.979,256.232,156.387z" />
+            <path class="darkToggle" d="M391.766,115.94c-45.016,0-85.613,18.816-114.443,48.972c-27.183,28.431-43.912,66.941-43.912,109.383
      c0,43.343,17.43,82.604,45.644,111.198c28.715,29.104,68.598,47.156,112.711,47.156c87.457,0,158.355-70.896,158.355-158.354
-     C550.121,186.837,479.223,115.94,391.766,115.94z"/>
- </g>
-</svg>
-</button>
+     C550.121,186.837,479.223,115.94,391.766,115.94z" />
+          </g>
+        </svg>
+      </button>
 
-<!-- Icons made by https://www.freepik.com from https://www.flaticon.com/ -->
-<button onclick="showBikes()" class="darkToggleButton" disabled id="bikeButton" onmouseover="bikeParkingMouseOver('bikeButton')" onmouseleave="bikeParkingMouseLeave('bikeButton')">
-  <svg id="Layer_1" height="100%" viewBox="0 0 512 512" width="100%" xmlns="http://www.w3.org/2000/svg">
-    <path class="darkToggle" d="m416.667 224.936c-7.701 0-15.189.924-22.365 2.656l-37.915-90.996 32.891-10.963c7.859-2.62 12.106-11.115 9.486-18.974-2.62-7.858-11.11-12.109-18.974-9.486l-49.225 16.451c-7.647 3.187-11.263 11.968-8.077 19.615l9.425 22.619-131.473 34.182-13.504-31.504h20.864c8.284 0 15-6.716 15-15s-6.716-15-15-15h-64.267c-8.284 0-15 6.716-15 15s6.716 15 15 15h10.763l19.972 46.594-29.072 33.918c-14.516-8.944-31.596-14.112-49.862-14.112-52.567 0-95.334 42.766-95.334 95.333s42.767 95.333 95.333 95.333c47.464 0 86.933-34.868 94.149-80.333h50.45c4.792 0 9.296-2.29 12.12-6.163l96.756-132.695 17.812 42.75c-27.158 16.818-45.289 46.883-45.289 81.107 0 52.567 42.766 95.333 95.333 95.333s95.336-42.765 95.336-95.332-42.767-95.333-95.333-95.333zm-321.334 160.667c-36.024 0-65.333-29.309-65.333-65.334s29.309-65.333 65.333-65.333c10.802 0 20.991 2.651 29.976 7.313l-41.365 48.259c-3.813 4.448-4.687 10.708-2.239 16.03s7.77 8.732 13.628 8.732h63.575c-6.798 28.815-32.712 50.333-63.575 50.333zm32.614-80.334 59.492-69.408 29.746 69.408zm115.392-15.131-30.946-72.209 103.155-26.821zm173.328 95.465c-36.025 0-65.333-29.309-65.333-65.333 0-21.731 10.675-41.006 27.045-52.89l24.441 58.659c3.186 7.647 11.969 11.263 19.615 8.077 7.647-3.187 11.263-11.968 8.077-19.615l-24.454-58.69c3.455-.567 6.995-.875 10.608-.875 36.025 0 65.333 29.309 65.333 65.333s-29.308 65.334-65.332 65.334z"/>
-  </svg>
-</button>
+      <!-- Icons made by https://www.freepik.com from https://www.flaticon.com/ -->
+      <button onclick="showBikes()" class="darkToggleButton" disabled id="bikeButton"
+        onmouseover="bikeParkingMouseOver('bikeButton')" onmouseleave="bikeParkingMouseLeave('bikeButton')">
+        <svg id="Layer_1" height="100%" viewBox="0 0 512 512" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <path class="darkToggle"
+            d="m416.667 224.936c-7.701 0-15.189.924-22.365 2.656l-37.915-90.996 32.891-10.963c7.859-2.62 12.106-11.115 9.486-18.974-2.62-7.858-11.11-12.109-18.974-9.486l-49.225 16.451c-7.647 3.187-11.263 11.968-8.077 19.615l9.425 22.619-131.473 34.182-13.504-31.504h20.864c8.284 0 15-6.716 15-15s-6.716-15-15-15h-64.267c-8.284 0-15 6.716-15 15s6.716 15 15 15h10.763l19.972 46.594-29.072 33.918c-14.516-8.944-31.596-14.112-49.862-14.112-52.567 0-95.334 42.766-95.334 95.333s42.767 95.333 95.333 95.333c47.464 0 86.933-34.868 94.149-80.333h50.45c4.792 0 9.296-2.29 12.12-6.163l96.756-132.695 17.812 42.75c-27.158 16.818-45.289 46.883-45.289 81.107 0 52.567 42.766 95.333 95.333 95.333s95.336-42.765 95.336-95.332-42.767-95.333-95.333-95.333zm-321.334 160.667c-36.024 0-65.333-29.309-65.333-65.334s29.309-65.333 65.333-65.333c10.802 0 20.991 2.651 29.976 7.313l-41.365 48.259c-3.813 4.448-4.687 10.708-2.239 16.03s7.77 8.732 13.628 8.732h63.575c-6.798 28.815-32.712 50.333-63.575 50.333zm32.614-80.334 59.492-69.408 29.746 69.408zm115.392-15.131-30.946-72.209 103.155-26.821zm173.328 95.465c-36.025 0-65.333-29.309-65.333-65.333 0-21.731 10.675-41.006 27.045-52.89l24.441 58.659c3.186 7.647 11.969 11.263 19.615 8.077 7.647-3.187 11.263-11.968 8.077-19.615l-24.454-58.69c3.455-.567 6.995-.875 10.608-.875 36.025 0 65.333 29.309 65.333 65.333s-29.308 65.334-65.332 65.334z" />
+        </svg>
+      </button>
 
-<!-- Icons made by https://www.flaticon.com/authors/those-icons Those Icons from https://www.flaticon.com/ -->
-<button onclick="showParking()" class="darkToggleButton" id="parkingButton" onmouseover="bikeParkingMouseOver('parkingButton')" onmouseleave="bikeParkingMouseLeave('parkingButton')">
-  <svg id="Capa_1" height="100%" viewBox="0 0 458.706 458.706" width="100%" xmlns="http://www.w3.org/2000/svg">
-  <path class="darkToggle" d="m229.353 163.824h-32.765v65.529h32.765c18.062 0 32.765-14.703 32.765-32.765s-14.703-32.764-32.765-32.764z"/>
-  <path class="darkToggle" d="m425.941 0h-393.176c-18.094 0-32.765 14.671-32.765 32.765v393.176c0 18.094 14.671 32.765 32.765 32.765h393.176c18.094 0 32.765-14.671 32.765-32.765v-393.176c0-18.094-14.671-32.765-32.765-32.765zm-196.588 294.882h-32.765v65.529h-65.529v-262.117h98.294c54.203 0 98.294 44.091 98.294 98.294s-44.091 98.294-98.294 98.294z"/>
-</svg>
-</button>
+      <!-- Icons made by https://www.flaticon.com/authors/those-icons Those Icons from https://www.flaticon.com/ -->
+      <button onclick="showParking()" class="darkToggleButton" id="parkingButton"
+        onmouseover="bikeParkingMouseOver('parkingButton')" onmouseleave="bikeParkingMouseLeave('parkingButton')">
+        <svg id="Capa_1" height="100%" viewBox="0 0 458.706 458.706" width="100%" xmlns="http://www.w3.org/2000/svg">
+          <path class="darkToggle"
+            d="m229.353 163.824h-32.765v65.529h32.765c18.062 0 32.765-14.703 32.765-32.765s-14.703-32.764-32.765-32.764z" />
+          <path class="darkToggle"
+            d="m425.941 0h-393.176c-18.094 0-32.765 14.671-32.765 32.765v393.176c0 18.094 14.671 32.765 32.765 32.765h393.176c18.094 0 32.765-14.671 32.765-32.765v-393.176c0-18.094-14.671-32.765-32.765-32.765zm-196.588 294.882h-32.765v65.529h-65.529v-262.117h98.294c54.203 0 98.294 44.091 98.294 98.294s-44.091 98.294-98.294 98.294z" />
+        </svg>
+      </button>
 
-  <!-- <div id="header">Header</div> -->
-  <div id="map"></div>
-  <div id="content"></div>
-</div>
-<div id="chart-grid">Charts</div>
-</div>
-<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initMap&libraries=&v=weekly"
-async
-></script>
+      <!-- <div id="header">Header</div> -->
+      <div id="map"></div>
+      <div id="content"></div>
+    </div>
+    <div id="chart-grid">
+      <div id="chart_div"></div>
+    </div>
+  </div>
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initCharts&libraries=&v=weekly"
+    async></script>
 </body>
+
 </html>
