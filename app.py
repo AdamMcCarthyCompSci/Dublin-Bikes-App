@@ -44,22 +44,11 @@ def get_occupancy(station_id):
         where number = {station_id}
     """
     df = pd.read_sql_query(sql, engine)
-    # res_df = df.set_index('last_update').resample('W-MON').mean()
-    # res_df['last_update'] = res_df.index
-
-    # res_df = df.set_index('last_update')
-    # res_df = res_df.groupby([res_df.index.day_name()])[
-    #     "available_bikes"].mean()
-    # res_df['last_update'] = res_df.index
-
-    # df["last_update"] = pd.to_datetime(df["last_update"])
-    # res_df = df.groupby([df["last_update"].dt.weekday ])["available_bikes"].mean().reset_index()
-    # add_df = df.groupby([df["last_update"].dt.weekday ])["available_bike_stands"].mean().reset_index()
-    # res_df["available_bike_stands"] = add_df["available_bike_stands"]
     df["last_update"] = pd.to_datetime(df["last_update"])
     df["day"] = df["last_update"].dt.dayofweek
     df["hour"] = df["last_update"].dt.hour
-    res_df = pd.DataFrame(data={"hours": [x for x in range(24)]})
+    res_df = pd.DataFrame(
+        data={"hours": ["{}:00".format(x) for x in range(24)]})
     for i, days in enumerate(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']):
         day = []
         for hours in range(24):
@@ -72,8 +61,6 @@ def get_occupancy(station_id):
 @app.route("/stations")
 @lru_cache
 def stations():
-    # Look into (functools.memoise()) as a decorator memoisation tool to cache query results.
-    # Alternatively, could store data inside web app via a JS variable or local database in web app.
     username = "DublinBikesApp"
     password = "dublinbikesapp"
     endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"

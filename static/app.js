@@ -204,15 +204,15 @@ drawOccupancyWeekly = (station_number) => {
 
       let options = {
         CurveType: 'function',
-        legend: {position: 'bottom', textStyle: {color: '#FFF'}},
+        legend: {position: 'top', textStyle: {color: '#FFF'}},
         backgroundColor: { fill:'transparent' },
-        vAxis: {title: "Number of Bikes/Open Stations", textStyle: {color: '#FFF'}, titleTextStyle: {color: '#FFF'}, gridlines: {color: '#787878'}},
-        hAxis: { title: "Hours in Day", textStyle: {color: '#FFF'}, titleTextStyle: {color: '#FFF'}}
+        vAxis: {title: "Typical Number of Bikes at Station", textStyle: {color: '#FFF'}, titleTextStyle: {color: '#FFF'}, gridlines: {color: '#787878'}},
+        hAxis: { textStyle: {color: '#FFF'}},
         // width: 300,
         // height: 400
       };
       let chart_data = new google.visualization.DataTable();
-      chart_data.addColumn("number", "Hours");
+      chart_data.addColumn("string", "Hours");
       chart_data.addColumn("number", "Monday");
       chart_data.addColumn("number", "Tuesday");
       chart_data.addColumn("number", "Wednesday");
