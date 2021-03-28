@@ -203,19 +203,29 @@ drawOccupancyWeekly = (station_number) => {
       console.log(data);
 
       let options = {
-        title: "Bike Availability per day",
+        CurveType: 'function',
+        legend: {position: 'bottom', textStyle: {color: '#FFF'}},
+        backgroundColor: { fill:'transparent' },
+        vAxis: {title: "Number of Bikes/Open Stations", textStyle: {color: '#FFF'}, titleTextStyle: {color: '#FFF'}, gridlines: {color: '#787878'}},
+        hAxis: { title: "Hours in Day", textStyle: {color: '#FFF'}, titleTextStyle: {color: '#FFF'}}
         // width: 300,
         // height: 400
       };
-      let chart = new google.visualization.ColumnChart(
+      let chart_data = new google.visualization.DataTable();
+      chart_data.addColumn("number", "Hours");
+      chart_data.addColumn("number", "Monday");
+      chart_data.addColumn("number", "Tuesday");
+      chart_data.addColumn("number", "Wednesday");
+      chart_data.addColumn("number", "Thursday");
+      chart_data.addColumn("number", "Friday");
+      chart_data.addColumn("number", "Saturday");
+      chart_data.addColumn("number", "Sunday");
+      data.forEach((v) => {
+        chart_data.addRow([v.hours, v.Monday, v.Tuesday, v.Wednesday, v.Thursday, v.Friday, v.Saturday, v.Sunday]);
+      });
+      var chart = new google.visualization.LineChart(
         document.getElementById("chart_div")
       );
-      let chart_data = new google.visualization.DataTable();
-      chart_data.addColumn("datetime", "Date");
-      chart_data.addColumn("number", "Bike Availability");
-      data.forEach((v) => {
-        chart_data.addRow([new Date(v.last_update), v.available_bikes]);
-      });
       chart.draw(chart_data, options);
     });
 };
