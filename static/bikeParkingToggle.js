@@ -13,7 +13,6 @@ if (document.getElementById(button).style.backgroundColor !== "#ffffff") {
 };
 
 showBikes = () => {
-console.log("shoebikes");
 document.getElementById("parkingButton").disabled = false;
 document.getElementById("bikeButton").disabled = true;
 if (darkToggle) {
@@ -54,7 +53,6 @@ markerList.forEach((Marker) => {
 };
 
 showParking = () => {
-console.log("showParking");
 document.getElementById("parkingButton").disabled = true;
 document.getElementById("bikeButton").disabled = false;
 if (darkToggle) {

@@ -18,6 +18,7 @@ function initCharts() {
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(initMap);
 }
+let activeStation = null;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -54,8 +55,6 @@ fetch("/stations")
   })
   .then((data) => {
     let stationData = data;
-    // const bikeLayer = new google.maps.BicyclingLayer();
-    // bikeLayer.setMap(map);
 
     data.forEach((station) => {
       class Popup extends google.maps.OverlayView {
@@ -122,8 +121,13 @@ fetch("/stations")
 
       Circle.addListener("click", () => {
 
-        console.log("calling drawOccupancyWeekly" + station.number);
+        if (typeof chartOptions == 'undefined') {
         drawOccupancyWeekly(station.number);
+        }
+        else {
+          drawOccupancyWeekly(station.number, chartOptions)
+        }
+        activeStation = station.number;
 
         document.getElementById(
           "content"
@@ -190,42 +194,3 @@ fetch("/stations")
   .catch((err) => {
     console.log("Error!", err);
   });
-
-drawOccupancyWeekly = (station_number) => {
-  // this is called when the user clicks on the marker
-  // use google charts to draw a chart at the bottom of the page
-
-  fetch("/occupancy/" + station_number)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-
-      let options = {
-        CurveType: 'function',
-        legend: {position: 'top', textStyle: {color: '#FFF'}},
-        backgroundColor: { fill:'transparent' },
-        vAxis: {title: "Typical Number of Bikes at Station", textStyle: {color: '#FFF'}, titleTextStyle: {color: '#FFF'}, gridlines: {color: '#787878'}},
-        hAxis: { textStyle: {color: '#FFF'}},
-        // width: 300,
-        // height: 400
-      };
-      let chart_data = new google.visualization.DataTable();
-      chart_data.addColumn("string", "Hours");
-      chart_data.addColumn("number", "Monday");
-      chart_data.addColumn("number", "Tuesday");
-      chart_data.addColumn("number", "Wednesday");
-      chart_data.addColumn("number", "Thursday");
-      chart_data.addColumn("number", "Friday");
-      chart_data.addColumn("number", "Saturday");
-      chart_data.addColumn("number", "Sunday");
-      data.forEach((v) => {
-        chart_data.addRow([v.hours, v.Monday, v.Tuesday, v.Wednesday, v.Thursday, v.Friday, v.Saturday, v.Sunday]);
-      });
-      var chart = new google.visualization.LineChart(
-        document.getElementById("chart_div")
-      );
-      chart.draw(chart_data, options);
-    });
-};

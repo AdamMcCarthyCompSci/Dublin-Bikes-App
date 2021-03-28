@@ -1,7 +1,6 @@
 var darkToggle = false;
 
 function toggleDarkMode() {
-  console.log("darkToggleMode");
   var element = document.body;
   darkToggle = !darkToggle;
   element.classList.toggle("dark-mode");
@@ -19,8 +18,10 @@ function toggleDarkMode() {
     }
 
     var mapOptions = { styles: lightMap };
+    chartOptions = lightChart;
   } else {
     var mapOptions = { styles: darkMap };
+    chartOptions = darkChart;
     let darkToggle = document.getElementsByClassName("darkToggle");
     for (var i = 0; i < darkToggle.length; i++) {
       darkToggle[i].style.fill = "#2d3142";
@@ -34,6 +35,9 @@ function toggleDarkMode() {
     }
   }
   map.setOptions(mapOptions);
+  if (activeStation) {
+  drawOccupancyWeekly(activeStation, chartOptions);
+  };
 }
 
 darkToggleMouseOver = (button) => {
