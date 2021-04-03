@@ -25,3 +25,18 @@ body {
 button:focus {
   outline: 0;
 }
+
+#stationList {
+    width: 200px;
+    border-right: solid 3px;
+    border-bottom: solid 3px;
+    position:absolute;
+    top:10px;
+    left: 20px;
+    height: 50px;
+    padding:10px;
+    font-size: 12px;
+    border-color: grey;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}

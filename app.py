@@ -26,7 +26,7 @@ def contact():
 
 
 @app.route("/occupancy/<int:station_id>")
-@lru_cache
+@lru_cache()
 def get_occupancy(station_id):
     print('calling stations')
 
@@ -59,7 +59,7 @@ def get_occupancy(station_id):
 
 
 @app.route("/stations")
-@lru_cache
+@lru_cache()
 def stations():
     username = "DublinBikesApp"
     password = "dublinbikesapp"
