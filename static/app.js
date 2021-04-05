@@ -4,6 +4,9 @@ let markerList = [];
 let circleList = [];
 let markerToggle = "available_bikes";
 
+let hourlyChart = true;
+let dailyChart = false;
+
 changeCircleColour = (bikes) => {
   if (bikes <= 1) {
     return "#8b1a00";
