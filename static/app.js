@@ -39,6 +39,7 @@ function initMap() {
     var available_stands = markerList[2];
     var lat = markerList[3];
     var lng = markerList[4];
+    var number = markerList[5];
 
      document.getElementById("content").innerHTML = `<button onclick="closePop()">X</button><h1 class="popupHead">${name}<h1>
         <svg id="Layer_1" height="10%" viewBox="0 0 512 512" width="10%" xmlns="http://www.w3.org/2000/svg">
@@ -59,6 +60,14 @@ function initMap() {
         document.getElementById("content")
      );
      popup.setMap(map);
+
+     if (typeof chartOptions == 'undefined') {
+        drawOccupancyWeekly(number);
+        }
+        else {
+          drawOccupancyWeekly(number, chartOptions)
+        }
+        activeStation = number;
 
   }
 
@@ -143,7 +152,7 @@ function initMap() {
     let stationData = data;
     data.forEach((station) => {
 
-      var stationMarkerList = [station.name, station.available_bikes, station.available_bike_stands, station.pos_lat, station.pos_lng];
+      var stationMarkerList = [station.name, station.available_bikes, station.available_bike_stands, station.pos_lat, station.pos_lng, station.number];
       document.getElementById("stationList").innerHTML += '<option value="' + stationMarkerList + '">'+
       station.name + '</option>';
 
@@ -165,13 +174,6 @@ function initMap() {
 
         marker(stationMarkerList);
 
-        if (typeof chartOptions == 'undefined') {
-        drawOccupancyWeekly(station.number);
-        }
-        else {
-          drawOccupancyWeekly(station.number, chartOptions)
-        }
-        activeStation = station.number;
       });
       Circle.addListener("mouseover", () => {
         if (station[markerToggle] <= 1) {
