@@ -11,4 +11,5 @@
     border-color: grey;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
+    cursor: pointer;
 }

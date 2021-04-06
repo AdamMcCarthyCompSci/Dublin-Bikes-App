@@ -36,12 +36,13 @@
     <div id="map-grid">
 
       <!-- Icons made by https://www.freepik.com from https://www.flaticon.com/ -->
-      <button onclick="#" class="darkToggleButton" id="infoButton"
-      onmouseover="darkToggleMouseOver('infoButton')" onmouseleave="darkToggleMouseLeave('infoButton')">
-        <svg version="1.1" id="fi_32175" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" height="100%"
-         viewBox="0 0 550.121 550.121" xml:space="preserve">
+      <button class="darkToggleButton" id="infoButton" onmouseover="darkToggleMouseOver('infoButton')"
+        onmouseleave="darkToggleMouseLeave('infoButton')">
+        <svg version="1.1" id="fi_32175" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" width="100%" height="100%" viewBox="0 0 550.121 550.121" xml:space="preserve">
           <g>
-	        <path class="darkToggle" d="M248.146,0C111.314,0,0,111.321,0,248.152c0,136.829,111.314,248.151,248.146,248.151
+            <path class="darkToggle"
+              d="M248.146,0C111.314,0,0,111.321,0,248.152c0,136.829,111.314,248.151,248.146,248.151
 		      c136.835,0,248.158-111.322,248.158-248.151C496.304,111.321,384.98,0,248.146,0z
 		      M248.146,472.093 c-123.473,0-223.935-100.459-223.935-223.941c0-123.479,100.462-223.941,223.935-223.941
 		      c123.488,0,223.947,100.462,223.947,223.941C472.093,371.634,371.634,472.093,248.146,472.093z
@@ -103,13 +104,20 @@
         </svg>
       </button>
 
+      <!-- Taken and adapted from: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal2 -->
       <!-- The Modal -->
       <div id="myModal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
-          <span class="close">&times;</span>
-
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>How to use the Dublin Bikes App</h2>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the Modal Body</p>
+            <p>Some other text...</p>
+          </div>
         </div>
 
       </div>
@@ -123,9 +131,20 @@
       </select>
     </div>
     <div id="chart-button-grid">
-      <button onclick="showHourly()" id="hourlyButton" class="chartButtons">Typical Hourly</button>
-      <button onclick="showDaily()" id="dailyButton" class="chartButtons">Typical Daily</button>
-      <button onclick="showPrediction()" id="predictionButton" class="chartButtons">Prediction</button>
+      <button onclick="showHourly()" id="hourlyButton" class="chartButtons"
+        onmouseover="chartButtonsMouseOver('hourlyButton')" onmouseleave="chartButtonsMouseLeave('hourlyButton')">
+        <h3 class="chartButtonsText">Typical Hourly</h3>
+      </button>
+      <button onclick="showDaily()" id="dailyButton" class="chartButtons"
+        onmouseover="chartButtonsMouseOver('dailyButton')" onmouseleave="chartButtonsMouseLeave('dailyButton')">
+        <h3 class="chartButtonsText">Typical
+          Daily</h3>
+      </button>
+      <button onclick="showPrediction()" id="predictionButton" class="chartButtons"
+        onmouseover="chartButtonsMouseOver('predictionButton')"
+        onmouseleave="chartButtonsMouseLeave('predictionButton')">
+        <h3 class="chartButtonsText">Prediction</h3>
+      </button>
     </div>
     <div id="chart-grid">
       <div id="chart_div"></div>
@@ -135,8 +154,7 @@
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initCharts&libraries=&v=weekly"
     async></script>
-<script type="text/javascript" src="{{ url_for('static', filename='modal.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='modal.js') }}"></script>
 </body>
 
 </html>
-
