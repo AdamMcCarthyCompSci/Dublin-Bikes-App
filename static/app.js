@@ -7,6 +7,8 @@ let markerToggle = "available_bikes";
 let hourlyChart = true;
 let dailyChart = false;
 
+// function to display the circles as different colours depending on how many bikes are currently
+// available in that station.
 changeCircleColour = (bikes) => {
   if (bikes <= 1) {
     return "#8b1a00";
@@ -21,18 +23,36 @@ changeCircleColour = (bikes) => {
   }
 };
 
+// function to close the popup window that is currently open.
+// activated by clicking the 'x' in the top-left-hand corner of the popup
 function closePop(){
     document.getElementById("content").style.display = "none";
 }
 
+// function
 function initCharts() {
   google.charts.load('current', { 'packages': ['corechart'] });
   google.charts.setOnLoadCallback(initMap);
 }
 let activeStation = null;
 
+// callback function that loads the map, fetches the data for each station, and creates a clickable marker
+// for that station.
+// Contains the marker function which displays a popup window with live info for the clicked station --
+// either clicked on the map or slected from the dropwdown menu.
+// Contains a constructor for the Popup class
 function initMap() {
 
+  // when called, this function takes its list argument
+  // splits the list into variables
+  // plugs the variables into the innerHTML for the id='content' div in the index.html file.
+  // it makes the 'content' div display the innerHTML as a block
+  // creates a new instance of the popup class
+  // assigns the html put in the 'content' div to the popup instance
+  // and displays that popup on the map.
+  // The function also takes the part of its list referring to the station_number and
+  // depending on the whether darkMode or lightMode is selected, sends the station_number to the
+  // drawOccupancyWeekly function in the charts.js file.
   function marker(markerList){
 
     console.log("marker called with", markerList);
@@ -99,6 +119,9 @@ function initMap() {
   showBikes();
 
   // creating a popup class
+  // taken and adapted from:
+  //https://developers.google.com/maps/documentation/javascript/examples/overlay-popup
+
     class Popup extends google.maps.OverlayView {
     constructor(position, content) {
       super();
