@@ -20,6 +20,7 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='charts.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dropdown.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='infoButton.css') }}" />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='modal.css') }}" />
   <script type="text/javascript" src="{{ url_for('static', filename='mapStyle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='bikeParkingToggle.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='darkMode.js') }}"></script>
@@ -102,6 +103,17 @@
         </svg>
       </button>
 
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+
+        </div>
+
+      </div>
+
       <!-- <div id="header">Header</div> -->
       <div id="map"></div>
       <div id="content"></div>
@@ -123,6 +135,7 @@
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdog1Nj6JCWWFt52r7onG0CyOfp-XRnJA&callback=initCharts&libraries=&v=weekly"
     async></script>
+<script type="text/javascript" src="{{ url_for('static', filename='modal.js') }}"></script>
 </body>
 
 </html>
