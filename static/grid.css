@@ -29,7 +29,7 @@
   #chart-grid {
     display: grid;
     position: absolute;
-    top: 70%;
+    top: 72%;
     left: 15%;
     height:25%;
     grid-column: 1 / -1;

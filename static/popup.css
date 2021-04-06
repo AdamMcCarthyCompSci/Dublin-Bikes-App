@@ -52,8 +52,30 @@
 .popupHead {
   color: #2d3142;
 }
+
 .popupText {
   font-size: 15px;
   display: inline;
   color: #2d3142;
 }
+
+.closePopupButton {
+  float: right;
+  margin-right: 0;
+  color: white;
+  background-color: #2d3142;
+  border-color: #2d3142;
+  border-radius: 20%;
+  cursor: pointer;
+  display: grid;
+}
+
+.closePopupButton:hover {
+  background-color: #a2d2ff;
+  border-color: #a2d2ff;
+}
+
+.contentText {
+  display: block;
+}
+
