@@ -63,7 +63,7 @@ function initMap() {
     var lat = markerList[3];
     var lng = markerList[4];
     var number = markerList[5];
-    document.getElementById("content").innerHTML = `<button onclick="closePop()" class="closePopupButton">X</button>`  
+    document.getElementById("content").innerHTML = `<button onclick="closePop()" class="closePopupButton">X</button>`
     document.getElementById("content").innerHTML +=
         `<div class="contentText"> <h1 class="popupHead">${name}<h1>
         <svg id="Layer_1" height="10%" viewBox="0 0 512 512" width="10%" xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +78,7 @@ function initMap() {
         <p class="popupText">Spaces available: ${available_stands}</p>
         </div>`;
 
-    //  document.getElementById("content").style.display = 'block';
+      document.getElementById("content").style.display = 'block';
 
      popup = new Popup(
         new google.maps.LatLng(lat, lng),
