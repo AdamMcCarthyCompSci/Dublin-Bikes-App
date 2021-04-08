@@ -36,8 +36,6 @@ function initCharts() {
 }
 let activeStation = null;
 
-// callback function that loads the map, fetches the data for each station, and creates a clickable marker
-// for that station.
 // Contains the marker function which displays a popup window with live info for the clicked station --
 // either clicked on the map or slected from the dropwdown menu.
 // Contains a constructor for the Popup class
@@ -172,6 +170,17 @@ function initMap() {
       }
     }
   }
+
+  fetch("/liveData")
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    let liveData = data;
+    data.forEach((update) => {
+
+    })
+  })
 
   fetch("/stations")
   .then((response) => {

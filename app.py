@@ -88,6 +88,22 @@ def stations():
     dataFrame = pd.read_sql_table("stations", engine)
     return dataFrame.to_json(orient='records')
 
+@app.route("/liveData")
+def liveData():
+    username = "DublinBikesApp"
+    password = "dublinbikesapp"
+    endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"
+    port = "3306"
+    db = "DublinBikesApp"
+
+    engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
+        username, password, endpoint, port, db), echo=True)
+    sql = 'SELECT * FROM dynamicData where Insert_ID = (SELECT MAX(Insert_ID) FROM DublinBikesApp.dynamicData);'
+    df = pd.read_sql_query(sql, engine)
+    return df.to_json(orient='records')
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

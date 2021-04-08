@@ -9,7 +9,6 @@ drawOccupancyWeekly = (station_number, chartOptions = darkChart) => {
         return response.json();
       })
       .then((data) => {
-
           let chart_data = new google.visualization.DataTable();
           chart_data.addColumn("string", "Hours");
           chart_data.addColumn("number", "Monday");
