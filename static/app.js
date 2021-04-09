@@ -171,17 +171,6 @@ function initMap() {
     }
   }
 
-  fetch("/liveData")
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    let liveData = data;
-    data.forEach((update) => {
-
-    })
-  })
-
   fetch("/stations")
   .then((response) => {
     return response.json();
