@@ -9,14 +9,16 @@ let dailyChart = false;
 
 // function to display the circles as different colours depending on how many bikes are currently
 // available in that station.
-changeCircleColour = (bikes) => {
-  if (bikes <= 1) {
+changeCircleColour = (available, total) => {
+  percentage = (available / total) * 100;
+  console.log(available, total, percentage);
+  if (percentage <= 10) {
     return "#8b1a00";
   }
-  if (bikes <= 3) {
+  if (percentage <= 20) {
     return "#d25c00";
   }
-  if (bikes <= 5) {
+  if (percentage <= 30) {
     return "#F5BB00";
   } else {
     return "#0877ff";
@@ -179,15 +181,15 @@ function initMap() {
     let stationData = data;
     data.forEach((station) => {
 
-      var stationMarkerList = [station.name, station.available_bikes, station.available_bike_stands, station.pos_lat, station.pos_lng, station.number];
+      let stationMarkerList = [station.name, station.available_bikes, station.available_bike_stands, station.pos_lat, station.pos_lng, station.number];
       document.getElementById("stationList").innerHTML += '<option value="' + stationMarkerList + '">'+
       station.name + '</option>';
 
       let Circle = new google.maps.Circle({
-        strokeColor: changeCircleColour(station[markerToggle]),
+        strokeColor: changeCircleColour(station[markerToggle], station.bike_stands),
         strokeOpacity: "0.8",
         strokeWeight: 2,
-        fillColor: changeCircleColour(station[markerToggle]),
+        fillColor: changeCircleColour(station[markerToggle], station.bike_stands),
         fillOpacity: 0.35,
         map: map,
         center: { lat: station.pos_lat, lng: station.pos_lng },
@@ -195,6 +197,7 @@ function initMap() {
         clickable: true,
         available_bikes: station.available_bikes,
         available_bike_stands: station.available_bike_stands,
+        bike_stands: station.bike_stands
       });
 
       Circle.addListener("click", () => {
@@ -203,22 +206,22 @@ function initMap() {
 
       });
       Circle.addListener("mouseover", () => {
-        if (station[markerToggle] <= 1) {
+        if ((station[markerToggle]/station.bike_stands) * 100 <= 10) {
           Circle.setOptions({ fillColor: "#d72800", strokeColor: "#d72800" });
-        } else if (station[markerToggle] <= 3) {
+        } else if ((station[markerToggle]/station.bike_stands) * 100 <= 20) {
           Circle.setOptions({ fillColor: "#ff9441", strokeColor: "#ff9441" });
-        } else if (station[markerToggle] <= 5) {
+        } else if ((station[markerToggle]/station.bike_stands) * 100 <= 30) {
           Circle.setOptions({ fillColor: "#FFE89E", strokeColor: "#FFE89E" });
         } else {
           Circle.setOptions({ fillColor: "#6eafff", strokeColor: "#6eafff" });
         }
       });
       Circle.addListener("mouseout", () => {
-        if (station[markerToggle] <= 1) {
+        if ((station[markerToggle]/station.bike_stands) * 100 <= 10) {
           Circle.setOptions({ fillColor: "#8b1a00", strokeColor: "#8b1a00" });
-        } else if (station[markerToggle] <= 3) {
+        } else if ((station[markerToggle]/station.bike_stands) * 100 <= 20) {
           Circle.setOptions({ fillColor: "#d25c00", strokeColor: "#d25c00" });
-        } else if (station[markerToggle] <= 5) {
+        } else if ((station[markerToggle]/station.bike_stands) * 100 <= 30) {
           Circle.setOptions({ fillColor: "#F5BB00", strokeColor: "#F5BB00" });
         } else {
           Circle.setOptions({ fillColor: "#0877ff", strokeColor: "#0877ff" });

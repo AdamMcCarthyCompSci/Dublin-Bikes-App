@@ -38,8 +38,8 @@ if (!darkToggle) {
 markerToggle = "available_bikes";
 circleList.forEach((Circle) => {
     Circle.setOptions({
-    strokeColor: changeCircleColour(Circle.available_bikes),
-    fillColor: changeCircleColour(Circle.available_bikes),
+    strokeColor: changeCircleColour(Circle.available_bikes, Circle.bike_stands),
+    fillColor: changeCircleColour(Circle.available_bikes, Circle.bike_stands),
     });
 });
 markerList.forEach((Marker) => {
@@ -78,8 +78,8 @@ if (!darkToggle) {
 markerToggle = "available_bike_stands";
 circleList.forEach((Circle) => {
     Circle.setOptions({
-    strokeColor: changeCircleColour(Circle.available_bike_stands),
-    fillColor: changeCircleColour(Circle.available_bike_stands),
+    strokeColor: changeCircleColour(Circle.available_bike_stands, Circle.bike_stands),
+    fillColor: changeCircleColour(Circle.available_bike_stands, Circle.bike_stands)
     });
 });
 markerList.forEach((Marker) => {
