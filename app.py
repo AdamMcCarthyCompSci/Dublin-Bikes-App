@@ -86,7 +86,7 @@ def stations():
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
         username, password, endpoint, port, db), echo=True)
 
-    sql = 'SELECT * FROM stations, dynamicData where stations.number = dynamicData.number and Insert_ID = (SELECT MAX(Insert_ID) FROM DublinBikesApp.dynamicData);'
+    sql = 'select dynamicData.Insert_ID, dynamicData.number, dynamicData.available_bike_stands, dynamicData.available_bikes, stations.number, stations.name, stations.pos_lat, stations.pos_lng from dynamicData, stations where stations.number = dynamicData.number and Insert_ID = (SELECT MAX(Insert_ID) FROM DublinBikesApp.dynamicData);'
     dataFrame = pd.read_sql_query(sql, engine)
     return dataFrame.to_json(orient='records')
 #
