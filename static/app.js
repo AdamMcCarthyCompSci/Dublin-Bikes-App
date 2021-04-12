@@ -41,7 +41,7 @@ function initCharts() {
 let activeStation = null;
 
 // Contains the marker function which displays a popup window with live info for the clicked station --
-// either clicked on the map or slected from the dropwdown menu.
+// either clicked on the map or slected from the dropdown menu.
 // Contains a constructor for the Popup class
 function initMap() {
 
@@ -255,6 +255,11 @@ function initMap() {
     });
 
     document.getElementById('stationList').onchange = function(){
+      if (selectChart == false) {
+        selectChart = true;
+        showHourly();
+        document.getElementById("chart-button-grid").style.display = "grid";
+      }
         var id = document.getElementById('stationList').value;
         id = id.split(",");
         console.log("List function called with " + id);
