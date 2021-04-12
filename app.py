@@ -15,7 +15,7 @@ def hello():
 @app.route("/hourlyOccupancy/<int:station_id>")
 @lru_cache()
 def get_hourlyOccupancy(station_id):
-    print('calling stations')
+    print('calling hourlyOccupancy')
 
     username = "DublinBikesApp"
     password = "dublinbikesapp"
@@ -48,7 +48,7 @@ def get_hourlyOccupancy(station_id):
 @app.route("/dailyOccupancy/<int:station_id>")
 @lru_cache()
 def get_dailyOccupancy(station_id):
-    print('calling stations')
+    print('calling dailyOccupancy')
 
     username = "DublinBikesApp"
     password = "dublinbikesapp"
@@ -77,6 +77,7 @@ def get_dailyOccupancy(station_id):
 @app.route("/stations")
 @lru_cache()
 def stations():
+    print('calling stations')
     username = "DublinBikesApp"
     password = "dublinbikesapp"
     endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"
@@ -89,6 +90,7 @@ def stations():
     sql = 'select dynamicData.Insert_ID, dynamicData.number, dynamicData.bike_stands, dynamicData.available_bike_stands, dynamicData.available_bikes, stations.number as "staticNumber", stations.name, stations.pos_lat, stations.pos_lng from dynamicData, stations where stations.number = dynamicData.number and Insert_ID = (SELECT MAX(Insert_ID) FROM DublinBikesApp.dynamicData);'
     dataFrame = pd.read_sql_query(sql, engine)
     return dataFrame.to_json(orient='records')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

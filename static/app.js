@@ -4,14 +4,16 @@ let markerList = [];
 let circleList = [];
 let markerToggle = "available_bikes";
 
+let selectChart = false;
 let hourlyChart = true;
 let dailyChart = false;
+let predictionChart = false;
 
 // function to display the circles as different colours depending on how many bikes are currently
 // available in that station.
 changeCircleColour = (available, total) => {
   percentage = (available / total) * 100;
-  console.log(available, total, percentage);
+//  console.log(available, total, percentage);
   if (percentage <= 10) {
     return "#8b1a00";
   }
@@ -119,7 +121,6 @@ function initMap() {
   }
   showParking();
   showBikes();
-  showHourly();
 
   // creating a popup class
   // taken and adapted from:
@@ -180,8 +181,7 @@ function initMap() {
   .then((data) => {
     let stationData = data;
     data.forEach((station) => {
-
-      let stationMarkerList = [station.name, station.available_bikes, station.available_bike_stands, station.pos_lat, station.pos_lng, station.number];
+      let stationMarkerList = [station.name, String(station.available_bikes), String(station.available_bike_stands), String(station.pos_lat), String(station.pos_lng), String(station.number)];
       document.getElementById("stationList").innerHTML += '<option value="' + stationMarkerList + '">'+
       station.name + '</option>';
 
@@ -201,6 +201,13 @@ function initMap() {
       });
 
       Circle.addListener("click", () => {
+
+        if (selectChart == false) {
+          selectChart = true;
+          showHourly();
+          document.getElementById("chart-button-grid").style.display = "grid";
+
+        }
 
         marker(stationMarkerList);
 
@@ -259,5 +266,4 @@ function initMap() {
   .catch((err) => {
     console.log("Error!", err);
   });
-
 }

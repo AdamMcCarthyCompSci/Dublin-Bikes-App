@@ -27,6 +27,7 @@ showHourly = () => {
     
     hourlyChart = true;
     dailyChart = false;
+    predictionChart = false;
 
     if (typeof chartOptions == 'undefined') {
         drawOccupancyWeekly(activeStation);
@@ -65,6 +66,8 @@ showDaily = () => {
 
     hourlyChart = false;
     dailyChart = true;
+    predictionChart = false;
+
     if (typeof chartOptions == 'undefined') {
         drawOccupancyWeekly(activeStation);
         }
@@ -102,7 +105,7 @@ showPrediction = () => {
 
     hourlyChart = false;
     dailyChart = false;
-    // show Prediction data
+    predictionChart = true;
 }
 
 chartButtonsMouseOver = (button) => {
