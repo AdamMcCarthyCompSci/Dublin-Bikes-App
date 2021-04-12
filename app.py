@@ -24,7 +24,7 @@ def get_hourlyOccupancy(station_id):
     db = "DublinBikesApp"
 
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        username, password, endpoint, port, db), echo=True)
+        username, password, endpoint, port, db), echo=False)
 
     sql = f"""
         SELECT number, last_update, available_bike_stands, available_bikes FROM DublinBikesApp.dynamicData
@@ -57,7 +57,7 @@ def get_dailyOccupancy(station_id):
     db = "DublinBikesApp"
 
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        username, password, endpoint, port, db), echo=True)
+        username, password, endpoint, port, db), echo=False)
 
     sql = f"""
         SELECT number, last_update, available_bike_stands, available_bikes FROM DublinBikesApp.dynamicData
@@ -84,7 +84,7 @@ def stations():
     db = "DublinBikesApp"
 
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        username, password, endpoint, port, db), echo=True)
+        username, password, endpoint, port, db), echo=False)
 
     sql = 'select dynamicData.Insert_ID, dynamicData.number, dynamicData.bike_stands, dynamicData.available_bike_stands, dynamicData.available_bikes, stations.number as "staticNumber", stations.name, stations.pos_lat, stations.pos_lng from dynamicData, stations where stations.number = dynamicData.number and Insert_ID = (SELECT MAX(Insert_ID) FROM DublinBikesApp.dynamicData);'
     dataFrame = pd.read_sql_query(sql, engine)
