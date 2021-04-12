@@ -12,10 +12,29 @@
     width: 100%;
   }
   
+  #chart-button-grid {
+    display: none;
+    position: absolute;
+    top: 75%;
+    left: 5%;
+    bottom: 5%;
+    height: 20%;
+    grid-column: 1 / -1;
+    /* height: 30%; */
+    min-width: 10%;
+    max-width: 10%;
+    /* grid-row: 10 / 15; */    
+  }
+
   #chart-grid {
     display: grid;
     position: absolute;
-    top: 70%;
+    top: 72%;
+    left: 15%;
+    height:25%;
     grid-column: 1 / -1;
+    /* height: 30%; */
+    min-width: 70%;
+    max-width: 70%;
     /* grid-row: 10 / 15; */
   }

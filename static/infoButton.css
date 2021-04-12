@@ -1,0 +1,16 @@
+#infoButton {
+    border-top-left-radius: 20%;
+    border-bottom-left-radius: 20%;
+    border-color: #ffffff;
+    background-color: #ffffff;
+    position: absolute;
+    z-index: 10;
+    margin-top: 5px;
+    margin-right:10px;
+    height: 60px;
+    left: 20px;
+    cursor: pointer;
+  }
+ .infoText {
+   color: #2d3142;
+ }

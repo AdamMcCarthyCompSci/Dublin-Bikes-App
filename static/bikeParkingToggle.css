@@ -6,8 +6,9 @@
     position: absolute;
     z-index: 10;
     margin-top: 5px;
-    margin-left: 10px;
+    margin-right:10px;
     height: 60px;
+    right: 200px;
     cursor: pointer;
   }
   
@@ -18,8 +19,8 @@
     background-color: gray;
     position: absolute;
     z-index: 10;
-    left: 50px;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-right: 10px;
+    right: 150px;
     cursor: pointer;
   }

@@ -1,0 +1,28 @@
+.chartButtons {
+    height: 100%;
+    margin-left: 5%;
+    border-color: gray;
+    background-color: gray;
+    text-align: center;
+    cursor: pointer;
+}
+
+#hourlyButton {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 90%;
+}
+
+#dailyButton {
+    width: 90%;
+}
+
+#predictionButton {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    width: 90%
+}
+
+.chartButtonsText {
+    color: #2d3142;
+}
