@@ -27,7 +27,7 @@ def get_hourlyOccupancy(station_id):
         username, password, endpoint, port, db), echo=False)
 
     sql = f"""
-        SELECT number, last_update, available_bike_stands, available_bikes FROM DublinBikesApp.dynamicData
+        SELECT number, last_update, available_bikes FROM DublinBikesApp.dynamicData
         where number = {station_id}
     """
     df = pd.read_sql_query(sql, engine)
@@ -40,7 +40,7 @@ def get_hourlyOccupancy(station_id):
         day = []
         for hours in range(24):
             day.append(df.loc[(df["hour"] == hours) & (
-                df["day"] == i)]['available_bike_stands'].mean())
+                df["day"] == i)]['available_bikes'].mean())
         res_df[days] = day
     return res_df.to_json(orient='records')
 
@@ -60,7 +60,7 @@ def get_dailyOccupancy(station_id):
         username, password, endpoint, port, db), echo=False)
 
     sql = f"""
-        SELECT number, last_update, available_bike_stands, available_bikes FROM DublinBikesApp.dynamicData
+        SELECT number, last_update, available_bikes FROM DublinBikesApp.dynamicData
         where number = {station_id}
     """
     df = pd.read_sql_query(sql, engine)
