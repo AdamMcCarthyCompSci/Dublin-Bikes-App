@@ -11,7 +11,6 @@ app = Flask(__name__)
 def hello():
     return render_template("index.html")
 
-
 @app.route("/hourlyOccupancy/<int:station_id>")
 @lru_cache()
 def get_hourlyOccupancy(station_id):
@@ -58,19 +57,19 @@ def get_dailyOccupancy(station_id):
         username, password, endpoint, port, db), echo=False)
 
     sql = f"""
-        SELECT number, last_update, available_bikes FROM DublinBikesApp.dynamicData
+        select WEEKDAY(last_update) as "weekday", AVG(available_bikes) "available_bikes"
+        FROM DublinBikesApp.dynamicData
         where number = {station_id}
+        group by (select(WEEKDAY(last_update)));
     """
     df = pd.read_sql_query(sql, engine)
-    df["last_update"] = pd.to_datetime(df["last_update"])
+    res_df = df
 
-    df["last_update"] = pd.to_datetime(df["last_update"])
-    res_df = df.groupby([df["last_update"].dt.dayofweek])[
-        "available_bikes"].mean().reset_index()
-    res_df["last_update"] = ["Monday", "Tuesday", "Wednesday",
-                             "Thursday", "Friday", "Saturday", "Sunday"]
+    res_df["weekday"] = ["Monday", "Tuesday", "Wednesday",
+                         "Thursday", "Friday", "Saturday", "Sunday"]
+
+    res_df.rename(columns={"weekday": "last_update"}, inplace=True)
     return res_df.to_json(orient='records')
-
 
 @app.route("/stations")
 @lru_cache()
