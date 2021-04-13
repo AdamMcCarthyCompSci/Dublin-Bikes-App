@@ -1,14 +1,19 @@
 var darkToggle = false;
 
+// Called when dark/light mode is toggled
 function toggleDarkMode() {
+  // Toggles default background/text
   var element = document.body;
   darkToggle = !darkToggle;
   element.classList.toggle("dark-mode");
+  // If darkmode
   if (darkToggle) {
+    // Text of chart buttons styling by class name 
     let darkToggleText = document.getElementsByClassName("chartButtonsText");
     for (var i = 0; i < darkToggleText.length; i++) {
       darkToggleText[i].style.color = "#ffffff";
     }
+    // Chart buttons styling by class name
     let darkToggleChartButtons = document.getElementsByClassName("chartButtons");
     for (var i = 0; i < darkToggleChartButtons.length; i++) {
       if (darkToggleChartButtons[i].style.width === "100%") {
@@ -16,10 +21,12 @@ function toggleDarkMode() {
         darkToggleChartButtons[i].style.borderColor = "#2d3142";
       }
     }
+    // SVG styling by class name
     let darkToggle = document.getElementsByClassName("darkToggle");
     for (var i = 0; i < darkToggle.length; i++) {
       darkToggle[i].style.fill = "#ffffff";
     }
+    // Top buttons styling by class name
     let darkToggleButton = document.getElementsByClassName("darkToggleButton");
     for (var i = 0; i < darkToggleButton.length; i++) {
       darkToggleButton[0].style.height = "60px";
@@ -29,7 +36,9 @@ function toggleDarkMode() {
       }
     }
 
+    // Swap map to light mode
     var mapOptions = { styles: lightMap };
+    // Swap chart to light mode
     chartOptions = lightChart;
   } else {
     let darkToggleText = document.getElementsByClassName("chartButtonsText");
@@ -58,7 +67,9 @@ function toggleDarkMode() {
       }
     }
   }
+  // initialise map again with dark/light mode
   map.setOptions(mapOptions);
+  // If a station is selected, re-build chart with new parameters
   if (activeStation) {
   drawOccupancyWeekly(activeStation, chartOptions);
   };

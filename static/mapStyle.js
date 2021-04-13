@@ -1,3 +1,4 @@
+// Style for map's dark mode
 const darkMap = [
   { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
   {
@@ -84,13 +85,9 @@ const darkMap = [
     featureType: "poi",
     stylers: [{ visibility: "off" }],
   },
-  // {
-  //   featureType: "transit",
-  //   elementType: "labels.icon",
-  //   stylers: [{ visibility: "off" }],
-  // },
 ];
 
+// Style for map's light mode
 const lightMap = [
   {
     featureType: "poi",
