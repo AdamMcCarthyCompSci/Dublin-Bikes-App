@@ -1,3 +1,4 @@
+/* Styling for buttons along the top to swap between dark/light mode */
 .darkToggleButton {
   width: 50px;
   height: 50px;
@@ -9,6 +10,7 @@
   cursor: pointer;
 }
 
+/* Dark/light toggle button's styling */
 #darkButton {
   border-radius: 20%;
   right: 5%;
@@ -16,11 +18,12 @@
   margin-right: 10px;
 }
 
-/* Fix initial svg colour */
+/* Toggles SVG colour between white/grey */
 .darkToggle {
   fill: "#2d3142";
 }
 
+/* Default styling for dark mode text and background */
 .dark-mode {
   background-color: #ffffff;
   color: #2d3142;

@@ -1,3 +1,4 @@
+// These buttons have similar functionality to bikeParkingToggle.js
 showHourly = () => {
     document.getElementById("hourlyButton").disabled = true;
     document.getElementById("dailyButton").disabled = false;
@@ -25,10 +26,12 @@ showHourly = () => {
         document.getElementById("hourlyButton").style.width = "100%";
     }
     
+    // Toggle which chart is being displayed
     hourlyChart = true;
     dailyChart = false;
     predictionChart = false;
 
+    // If chart options have not been selected yet, use default parameters
     if (typeof chartOptions == 'undefined') {
         drawOccupancyWeekly(activeStation);
         }

@@ -1,3 +1,4 @@
+// Style for dark mode of chart
 const darkChart = {
     CurveType: 'function',
     legend: {position: 'top', textStyle: {color: '#FFFFFF'}},
@@ -6,6 +7,7 @@ const darkChart = {
     hAxis: { textStyle: {color: '#FFFFFF'}, gridlines: {color: '#FFFFFF'}},
   };
 
+// Style for light mode of chart
 const lightChart = {
     CurveType: 'function',
     legend: {position: 'top', textStyle: {color: '#2d3142'}},

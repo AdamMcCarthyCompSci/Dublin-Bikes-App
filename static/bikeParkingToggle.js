@@ -12,9 +12,12 @@ if (document.getElementById(button).style.backgroundColor !== "#ffffff") {
 }
 };
 
+// Activates when clicking on bike button - shows number of bikes
 showBikes = () => {
+    // Toggles disabled button
 document.getElementById("parkingButton").disabled = false;
 document.getElementById("bikeButton").disabled = true;
+// Changes style depending on dark/light mode
 if (darkToggle) {
     document.getElementById("parkingButton").style.borderColor = "gray";
     document.getElementById("parkingButton").style.backgroundColor = "gray";
@@ -35,6 +38,7 @@ if (!darkToggle) {
     document.getElementById("bikeButton").style.height = "60px";
     document.getElementById("bikeButton").style.marginTop = "5px";
 }
+// Swap data to show available bikes rather than available stations
 markerToggle = "available_bikes";
 circleList.forEach((Circle) => {
     Circle.setOptions({
@@ -52,6 +56,7 @@ markerList.forEach((Marker) => {
 });
 };
 
+// Same as above but toggles to show spaces available
 showParking = () => {
 document.getElementById("parkingButton").disabled = true;
 document.getElementById("bikeButton").disabled = false;
