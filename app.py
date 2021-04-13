@@ -15,8 +15,6 @@ def hello():
 @app.route("/hourlyOccupancy/<int:station_id>")
 @lru_cache()
 def get_hourlyOccupancy(station_id):
-    print('calling hourlyOccupancy')
-
     username = "DublinBikesApp"
     password = "dublinbikesapp"
     endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"
@@ -24,26 +22,26 @@ def get_hourlyOccupancy(station_id):
     db = "DublinBikesApp"
 
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        username, password, endpoint, port, db), echo=False)
+        username, password, endpoint, port, db), echo=True)
 
-    sql = f"""
-        SELECT number, last_update, available_bikes FROM DublinBikesApp.dynamicData
+    sql = f'''
+        select WEEKDAY(last_update) as "weekday", HOUR(last_update) as "hour", AVG(available_bikes) "average_bikes"
+        from dynamicData
         where number = {station_id}
-    """
+        group by (select(WEEKDAY(last_update))), (select(HOUR(last_update)));
+    '''
+
     df = pd.read_sql_query(sql, engine)
-    df["last_update"] = pd.to_datetime(df["last_update"])
-    df["day"] = df["last_update"].dt.dayofweek
-    df["hour"] = df["last_update"].dt.hour
+    df.sort_values(['weekday', 'hour'], ignore_index=True, inplace=True)
+
     res_df = pd.DataFrame(
         data={"hours": ["{}:00".format(x) for x in range(24)]})
     for i, days in enumerate(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']):
         day = []
         for hours in range(24):
-            day.append(df.loc[(df["hour"] == hours) & (
-                df["day"] == i)]['available_bikes'].mean())
+            day.append(float(df.loc[(df["hour"] == hours) & (df["weekday"] == i)]['average_bikes']))
         res_df[days] = day
     return res_df.to_json(orient='records')
-
 
 @app.route("/dailyOccupancy/<int:station_id>")
 @lru_cache()
