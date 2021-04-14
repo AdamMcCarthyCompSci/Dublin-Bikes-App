@@ -109,6 +109,14 @@ showPrediction = () => {
     hourlyChart = false;
     dailyChart = false;
     predictionChart = true;
+
+    if (typeof chartOptions == 'undefined') {
+        drawOccupancyWeekly(activeStation);
+        }
+    else {
+          drawOccupancyWeekly(activeStation, chartOptions)
+        }
+
 }
 
 chartButtonsMouseOver = (button) => {
