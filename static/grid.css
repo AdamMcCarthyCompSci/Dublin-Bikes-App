@@ -48,7 +48,6 @@
   background-color: #2d3142;
   color: white;
   text-align: center;
-  padding-top: 200px;
 }
 
 .splash.display-none {
@@ -62,7 +61,6 @@
   background-color: #2d3142;
   color: white;
   text-align: center;
-  padding-top: 200px;
   transition: all 1s;
 }
 
