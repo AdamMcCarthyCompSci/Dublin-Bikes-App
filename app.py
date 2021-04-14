@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 import pandas as pd
 from functools import lru_cache
 import databaseInfo
+import pickle
 
 app = Flask(__name__)
 
