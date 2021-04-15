@@ -100,6 +100,7 @@ def stations():
     dataFrame = pd.read_sql_query(sql, engine)
     return dataFrame.to_json(orient='records')
 
+
 @app.route("/forecastOccupancy/<int:station_id>")
 @lru_cache()
 def get_forecastOccupancy(station_id):
@@ -108,6 +109,7 @@ def get_forecastOccupancy(station_id):
         databaseInfo.username, databaseInfo.password, databaseInfo.endpoint, databaseInfo.port, databaseInfo.db),
         echo=False)
 
+    # Create SQL queries
     sql_station = f"""
         SELECT number,bike_stands FROM DublinBikesApp.stations
         where number = {station_id};
@@ -123,6 +125,7 @@ def get_forecastOccupancy(station_id):
     """
 
     df_station = pd.read_sql_query(sql_station, engine)
+    # If station can't be found
     if df_station.shape[0] == 0:
         return ('Station number ' + str(station_id) + ' not found')
     else:
@@ -130,12 +133,15 @@ def get_forecastOccupancy(station_id):
         df_prediction = pd.read_sql_query(sql_prediction, engine)
         df_weather = pd.read_sql_query(sql_weather, engine)
 
+    # Get weather
     weather_events = df_weather['weather'].values.tolist()
     list_features = ['month', 'day', 'hour', 'temp']
     for event in weather_events:
         list_features.append('weather_' + event)
 
-    df_prediction = df_prediction.assign(number=station_id, bike_stands=df_station.at[0, 'bike_stands'])
+    # Format prediction into graph
+    df_prediction = df_prediction.assign(
+        number=station_id, bike_stands=df_station.at[0, 'bike_stands'])
     df_prediction["day"] = df_prediction["last_update"].dt.dayofweek
     df_prediction["hour"] = df_prediction["last_update"].dt.hour
     df_prediction["month"] = df_prediction["last_update"].dt.month
@@ -146,8 +152,10 @@ def get_forecastOccupancy(station_id):
     cat_attributes = ['weather']
     num_attributes = ['month', 'day', 'hour', 'temp']
 
-    prediction_attributes = df_prediction[['month', 'day', 'hour', 'weather', 'temp']]
-    prediction_encoded_attributes = pd.get_dummies(prediction_attributes, columns=cat_attributes)
+    prediction_attributes = df_prediction[[
+        'month', 'day', 'hour', 'weather', 'temp']]
+    prediction_encoded_attributes = pd.get_dummies(
+        prediction_attributes, columns=cat_attributes)
 
     list_prediction = list(prediction_encoded_attributes.columns)
 
@@ -155,9 +163,7 @@ def get_forecastOccupancy(station_id):
         if feat not in list_prediction:
             prediction_encoded_attributes[feat] = 0
 
-    # if collections.Counter(list_prediction) != collections.Counter(list_features):
-    #   return ("Features are not aligned")
-
+    # Get model file
     model = "models/model_station_" + str(station_id)
 
     X_prediction = prediction_encoded_attributes
@@ -166,11 +172,13 @@ def get_forecastOccupancy(station_id):
 
     result = model.predict(X_prediction)
 
+    # Get forecast
     df_forecast = pd.DataFrame()
 
     df_forecast['day'] = df_prediction['day']
     df_forecast['hour'] = df_prediction["hour"]
-    df_forecast['available_bikes_forecast'] = pd.DataFrame(result).round(0).astype(int)
+    df_forecast['available_bikes_forecast'] = pd.DataFrame(
+        result).round(0).astype(int)
     for i in range(df_forecast.shape[0]):
         if df_forecast.loc[i]['available_bikes_forecast'] > df_station.loc[0]['bike_stands']:
             df_forecast.loc[i]['available_bikes_forecast'] = df_station.loc[0]['bike_stands']
@@ -178,6 +186,7 @@ def get_forecastOccupancy(station_id):
             df_forecast.loc[i]['available_bikes_forecast'] = 0
 
     return df_forecast.to_json(orient='records')
+
 
 # Run app
 if __name__ == "__main__":
