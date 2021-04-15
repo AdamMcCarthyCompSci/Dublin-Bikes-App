@@ -63,7 +63,7 @@ drawOccupancyWeekly = (station_number, chartOptions = darkChart) => {
           let chart_data = new google.visualization.DataTable();
           showTextEvery: 3
           chart_data.addColumn("string", "Days");
-          chart_data.addColumn("number", "Tri-hourly");
+          chart_data.addColumn("number", "Predicted Bikes Available");
 
           data.forEach((v) => {
             chart_data.addRow([String(dayLabels[v.day]) + " " + String(v.hour) + ":00", v.available_bikes_forecast]);
