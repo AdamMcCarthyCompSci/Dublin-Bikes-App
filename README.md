@@ -8,6 +8,7 @@
 * [General info](#general-info)
 * [Requirement and Setup](#setup)!
 * [Technologies](#technologies)
+* [Contributors](#contributors)
 
 
 ## General info
@@ -26,7 +27,7 @@ A web app to track the number of bikes in each depot around Dublin. It can also 
     - graph 2: average hourly availibility for each day of the week
     - graph 3: 5 days forecast with 3 hours interval (updated every 3 hours)
 
-##Requirement and setup
+## Requirement and setup
 
 1. Python and requirements
 ```
@@ -50,7 +51,7 @@ Go into the project directory and run the command:
 
 <img src="/images/finalscreen.png" align="center" />
 
-##Technologies
+## Technologies
 
 Python 3.7
 Javascript
@@ -69,5 +70,5 @@ Flask
 
 
 
-Contributors
+## Contributors
 
