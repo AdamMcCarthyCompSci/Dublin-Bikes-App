@@ -1,117 +1,100 @@
+import datetime
 from flask import Flask, render_template
 from jinja2 import Template
+from pandas.io.formats.format import Datetime64Formatter
 from sqlalchemy import create_engine
 import pandas as pd
 from functools import lru_cache
-import databaseInfo
+import collections
 import pickle
 
-app = Flask(__name__)
 
-# Renders main app page
+app = Flask(__name__)
 
 
 @app.route("/")
 def hello():
     return render_template("index.html")
 
-# Gets average hourly data from database
-
 
 @app.route("/hourlyOccupancy/<int:station_id>")
 @lru_cache()
 def get_hourlyOccupancy(station_id):
+    print('calling stations')
 
-    # Connect to database
+    username = "DublinBikesApp"
+    password = "dublinbikesapp"
+    endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"
+    port = "3306"
+    db = "DublinBikesApp"
+
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        databaseInfo.username, databaseInfo.password, databaseInfo.endpoint, databaseInfo.port, databaseInfo.db), echo=False)
+        username, password, endpoint, port, db), echo=True)
 
-    # SQL query to get average hourly data per week
-    sql = f'''
-        select WEEKDAY(last_update) as "weekday", HOUR(last_update) as "hour", AVG(available_bikes) "average_bikes"
-        from dynamicData
+    sql = f"""
+        SELECT number, last_update, available_bike_stands, available_bikes FROM DublinBikesApp.dynamicData
         where number = {station_id}
-        group by (select(WEEKDAY(last_update))), (select(HOUR(last_update)));
-    '''
-
-    # Get dataframe from query
+    """
     df = pd.read_sql_query(sql, engine)
-
-    # Manipulate dataframe into one that can be used with a Google Charts line plot
-    df.sort_values(['weekday', 'hour'], ignore_index=True, inplace=True)
-
+    df["last_update"] = pd.to_datetime(df["last_update"])
+    df["day"] = df["last_update"].dt.dayofweek
+    df["hour"] = df["last_update"].dt.hour
     res_df = pd.DataFrame(
         data={"hours": ["{}:00".format(x) for x in range(24)]})
     for i, days in enumerate(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']):
         day = []
         for hours in range(24):
-            day.append(float(df.loc[(df["hour"] == hours) & (
-                df["weekday"] == i)]['average_bikes']))
+            day.append(df.loc[(df["hour"] == hours) & (
+                df["day"] == i)]['available_bike_stands'].mean())
         res_df[days] = day
     return res_df.to_json(orient='records')
-
-# Get daily averages from database
 
 
 @app.route("/dailyOccupancy/<int:station_id>")
 @lru_cache()
 def get_dailyOccupancy(station_id):
-    print('calling dailyOccupancy')
+    print('calling stations')
+    username = "DublinBikesApp"
+    password = "dublinbikesapp"
+    endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"
+    port = "3306"
+    db = "DublinBikesApp"
 
-    # Connect to database
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        databaseInfo.username, databaseInfo.password, databaseInfo.endpoint, databaseInfo.port, databaseInfo.db), echo=False)
+        username, password, endpoint, port, db), echo=True)
 
-    # Get SQL query for daily averages
     sql = f"""
-        select WEEKDAY(last_update) as "weekday", AVG(available_bikes) "available_bikes"
-        FROM DublinBikesApp.dynamicData
+        SELECT number, last_update, available_bike_stands, available_bikes FROM DublinBikesApp.dynamicData
         where number = {station_id}
-        group by (select(WEEKDAY(last_update)));
     """
-
-    # Query database and place in dataframe
     df = pd.read_sql_query(sql, engine)
+    df["last_update"] = pd.to_datetime(df["last_update"])
 
-    # Format dataframe for use with Google Charts
-    res_df = df
-
-    res_df["weekday"] = ["Monday", "Tuesday", "Wednesday",
-                         "Thursday", "Friday", "Saturday", "Sunday"]
-
-    res_df.rename(columns={"weekday": "last_update"}, inplace=True)
+    df["last_update"] = pd.to_datetime(df["last_update"])
+    res_df = df.groupby([df["last_update"].dt.dayofweek])[
+        "available_bikes"].mean().reset_index()
+    res_df["last_update"] = ["Monday", "Tuesday", "Wednesday",
+                             "Thursday", "Friday", "Saturday", "Sunday"]
     return res_df.to_json(orient='records')
 
-# Get static stations data along with most recent update data
-
-
-@app.route("/stations")
-@lru_cache()
-def stations():
-    print('calling stations')
-
-    # Connect to database
-    engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        databaseInfo.username, databaseInfo.password, databaseInfo.endpoint, databaseInfo.port, databaseInfo.db), echo=False)
-
-    # SQL query to get combination of static and dynamic data for stations
-    sql = 'select dynamicData.Insert_ID, dynamicData.number, dynamicData.bike_stands, dynamicData.available_bike_stands, dynamicData.available_bikes, stations.number as "staticNumber", stations.name, stations.pos_lat, stations.pos_lng from dynamicData, stations where stations.number = dynamicData.number and Insert_ID = (SELECT MAX(Insert_ID) FROM DublinBikesApp.dynamicData);'
-    # Query database and place in dataframe
-    dataFrame = pd.read_sql_query(sql, engine)
-    return dataFrame.to_json(orient='records')
 
 @app.route("/forecastOccupancy/<int:station_id>")
 @lru_cache()
 def get_forecastOccupancy(station_id):
-    # Connect to database
+
+    username = "DublinBikesApp"
+    password = "dublinbikesapp"
+    endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"
+    port = "3306"
+    db = "DublinBikesApp"
+
     engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
-        databaseInfo.username, databaseInfo.password, databaseInfo.endpoint, databaseInfo.port, databaseInfo.db),
-        echo=False)
+        username, password, endpoint, port, db), echo=True)
 
     sql_station = f"""
         SELECT number,bike_stands FROM DublinBikesApp.stations
-        where number = {station_id};
-        """
+    where number = {station_id};
+    """
 
     sql_prediction = f"""
     SELECT * from forecast;
@@ -133,9 +116,10 @@ def get_forecastOccupancy(station_id):
     weather_events = df_weather['weather'].values.tolist()
     list_features = ['month', 'day', 'hour', 'temp']
     for event in weather_events:
-        list_features.append('weather_' + event)
+        list_features.append('weather_'+event)
 
-    df_prediction = df_prediction.assign(number=station_id, bike_stands=df_station.at[0, 'bike_stands'])
+    df_prediction = df_prediction.assign(
+        number=station_id, bike_stands=df_station.at[0, 'bike_stands'])
     df_prediction["day"] = df_prediction["last_update"].dt.dayofweek
     df_prediction["hour"] = df_prediction["last_update"].dt.hour
     df_prediction["month"] = df_prediction["last_update"].dt.month
@@ -146,8 +130,10 @@ def get_forecastOccupancy(station_id):
     cat_attributes = ['weather']
     num_attributes = ['month', 'day', 'hour', 'temp']
 
-    prediction_attributes = df_prediction[['month', 'day', 'hour', 'weather', 'temp']]
-    prediction_encoded_attributes = pd.get_dummies(prediction_attributes, columns=cat_attributes)
+    prediction_attributes = df_prediction[[
+        'month', 'day', 'hour', 'weather', 'temp']]
+    prediction_encoded_attributes = pd.get_dummies(
+        prediction_attributes, columns=cat_attributes)
 
     list_prediction = list(prediction_encoded_attributes.columns)
 
@@ -156,9 +142,9 @@ def get_forecastOccupancy(station_id):
             prediction_encoded_attributes[feat] = 0
 
     # if collections.Counter(list_prediction) != collections.Counter(list_features):
-    #   return ("Features are not aligned")
+     #   return ("Features are not aligned")
 
-    model = "models/model_station_" + str(station_id)
+    model = "model_station_"+str(station_id)
 
     X_prediction = prediction_encoded_attributes
     with open(model, 'rb') as handle:
@@ -170,15 +156,29 @@ def get_forecastOccupancy(station_id):
 
     df_forecast['day'] = df_prediction['day']
     df_forecast['hour'] = df_prediction["hour"]
-    df_forecast['available_bikes_forecast'] = pd.DataFrame(result).round(0).astype(int)
-    for i in range(df_forecast.shape[0]):
-        if df_forecast.loc[i]['available_bikes_forecast'] > df_station.loc[0]['bike_stands']:
-            df_forecast.loc[i]['available_bikes_forecast'] = df_station.loc[0]['bike_stands']
-        elif df_forecast.loc[i]['available_bikes_forecast'] < 0:
-            df_forecast.loc[i]['available_bikes_forecast'] = 0
+    df_forecast['available_bikes'] = pd.DataFrame(result).round(0).astype(int)
+    if df_forecast['available_bikes'][0] > df_station['bike_stands'][0]:
+        df_forecast['available_bikes'] = df_station['bike_stands']
+    if df_forecast['available_bikes'][0] < 0:
+        df_forecast['available_bikes'] = 0
 
     return df_forecast.to_json(orient='records')
 
-# Run app
+
+@app.route("/stations")
+@lru_cache()
+def stations():
+    username = "DublinBikesApp"
+    password = "dublinbikesapp"
+    endpoint = "dublinbikesapp.cynvsd3ef0ri.us-east-1.rds.amazonaws.com"
+    port = "3306"
+    db = "DublinBikesApp"
+
+    engine = create_engine("mysql+mysqlconnector://{}:{}@{}:{}/{}".format(
+        username, password, endpoint, port, db), echo=True)
+    dataFrame = pd.read_sql_table("stations", engine)
+    return dataFrame.to_json(orient='records')
+
+
 if __name__ == "__main__":
     app.run(debug=True)

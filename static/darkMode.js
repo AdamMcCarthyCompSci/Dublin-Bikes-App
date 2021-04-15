@@ -8,13 +8,18 @@ function toggleDarkMode() {
   element.classList.toggle("dark-mode");
   // If darkmode
   if (darkToggle) {
-    // Text of chart buttons styling by class name 
+    // Style info info SVG on bottom part of page
+    let darkToggleInfo = document.getElementById("inverse-darkToggle");
+    darkToggleInfo.style.fill = "#2d3142";
+    // Text of chart buttons styling by class name
     let darkToggleText = document.getElementsByClassName("chartButtonsText");
     for (var i = 0; i < darkToggleText.length; i++) {
       darkToggleText[i].style.color = "#ffffff";
     }
     // Chart buttons styling by class name
-    let darkToggleChartButtons = document.getElementsByClassName("chartButtons");
+    let darkToggleChartButtons = document.getElementsByClassName(
+      "chartButtons"
+    );
     for (var i = 0; i < darkToggleChartButtons.length; i++) {
       if (darkToggleChartButtons[i].style.width === "100%") {
         darkToggleChartButtons[i].style.backgroundColor = "#2d3142";
@@ -41,11 +46,15 @@ function toggleDarkMode() {
     // Swap chart to light mode
     chartOptions = lightChart;
   } else {
+    let darkToggleInfo = document.getElementById("inverse-darkToggle");
+    darkToggleInfo.style.fill = "#ffffff";
     let darkToggleText = document.getElementsByClassName("chartButtonsText");
     for (var i = 0; i < darkToggleText.length; i++) {
       darkToggleText[i].style.color = "#2d3142";
     }
-    let darkToggleChartButtons = document.getElementsByClassName("chartButtons");
+    let darkToggleChartButtons = document.getElementsByClassName(
+      "chartButtons"
+    );
     for (var i = 0; i < darkToggleChartButtons.length; i++) {
       if (darkToggleChartButtons[i].style.width === "100%") {
         darkToggleChartButtons[i].style.backgroundColor = "#ffffff";
@@ -71,8 +80,8 @@ function toggleDarkMode() {
   map.setOptions(mapOptions);
   // If a station is selected, re-build chart with new parameters
   if (activeStation) {
-  drawOccupancyWeekly(activeStation, chartOptions);
-  };
+    drawOccupancyWeekly(activeStation, chartOptions);
+  }
 }
 
 darkToggleMouseOver = (button) => {

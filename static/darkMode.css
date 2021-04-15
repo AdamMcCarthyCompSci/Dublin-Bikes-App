@@ -23,6 +23,11 @@
   fill: "#2d3142";
 }
 
+/* Used to toggle the info button's darkmode in the bottom bar on app startup */
+#inverse-darkToggle {
+  fill: #ffffff;
+}
+
 /* Default styling for dark mode text and background */
 .dark-mode {
   background-color: #ffffff;
