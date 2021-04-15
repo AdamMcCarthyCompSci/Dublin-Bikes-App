@@ -6,7 +6,7 @@
 <img src="/images/readme.png" align="right" />
 
 * [General info](#general-info)
-* [Requirement and Setup](#setup)!
+* [Requirement and Setup](#setup)
 * [Technologies](#technologies)
 * [Contributors](#contributors)
 
