@@ -9,8 +9,10 @@ function toggleDarkMode() {
   // If darkmode
   if (darkToggle) {
     // Style info info SVG on bottom part of page
-    let darkToggleInfo = document.getElementById("inverse-darkToggle");
-    darkToggleInfo.style.fill = "#2d3142";
+    let darkToggleInfo = document.getElementsByClassName("inverse-darkToggle");
+    for (var i = 0; i < darkToggleInfo.length; i++) {
+      darkToggleInfo[i].style.fill = "#2d3142";
+    }
     // Text of chart buttons styling by class name
     let darkToggleText = document.getElementsByClassName("chartButtonsText");
     for (var i = 0; i < darkToggleText.length; i++) {
@@ -46,8 +48,10 @@ function toggleDarkMode() {
     // Swap chart to light mode
     chartOptions = lightChart;
   } else {
-    let darkToggleInfo = document.getElementById("inverse-darkToggle");
-    darkToggleInfo.style.fill = "#ffffff";
+    let darkToggleInfo = document.getElementsByClassName("inverse-darkToggle");
+    for (var i = 0; i < darkToggleInfo.length; i++) {
+      darkToggleInfo[i].style.fill = "#ffffff";
+    }
     let darkToggleText = document.getElementsByClassName("chartButtonsText");
     for (var i = 0; i < darkToggleText.length; i++) {
       darkToggleText[i].style.color = "#2d3142";

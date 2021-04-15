@@ -24,7 +24,7 @@
 }
 
 /* Used to toggle the info button's darkmode in the bottom bar on app startup */
-#inverse-darkToggle {
+.inverse-darkToggle {
   fill: #ffffff;
 }
 
