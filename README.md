@@ -19,7 +19,8 @@ A web app to track the number of bikes in each depot around Dublin. It can also 
   - zoom
   - Full screen mode
   - light/dark mode
-  - available bike/stands mode. Data updated every 5 minutes
+  - available bike/stands mode. Data updated every 5 minutes.
+  - dynamic markers indicating level of stands occupancy 
   - dropdown menu to select bike stations
   - Window pop-up with station information
   - 3 graphs:
@@ -39,12 +40,12 @@ $ pip install -r requirements.txt
 2. Clone it!
 
 ```
-$ git clone git https://github.com/AdamMcCarthyCompSci/Dublin-Bikes-App.git'''
+$ git clone git https://github.com/AdamMcCarthyCompSci/Dublin-Bikes-App.git
 ```
 
 3. Run
 
-Go into the project directory and run the command:
+Go into the project directory and run the command:<br>
 ```$ python app.py```
 
 4. Open http://localhost:5000 and enjoy!
@@ -53,22 +54,24 @@ Go into the project directory and run the command:
 
 ## Technologies
 
-Python 3.7
-Javascript
-jQuery
-HTML 5
-Json
-Google Visualisation API https://developers.google.com/chart
-Google Maps Platform API https://developers.google.com/maps
-Weather API from https://openweathermap.org/ (live and forecast)
-JCDecaux Developer API https://developer.jcdecaux.com/
-My SQL Benchmark
-Amazon Web Services (AWS): EC2 and RDS
-Flask
-
-
-
+* Python 3.7
+* Javascript
+* jQuery
+* HTML 5
+* Json
+* Google Visualisation API https://developers.google.com/chart
+* Google Maps Platform API https://developers.google.com/maps
+* Weather API from https://openweathermap.org/ (live and forecast)
+* JCDecaux Developer API https://developer.jcdecaux.com/
+* My SQL Benchmark
+* Amazon Web Services (AWS): EC2
+* Amazon Web Services (AWS): RDS
+* Flask
 
 
 ## Contributors
+
+- Adam MacCarthy
+- Jamie Reynolds
+- Yves Dobozy
 
