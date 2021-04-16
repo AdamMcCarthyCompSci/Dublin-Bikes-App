@@ -8,6 +8,7 @@
 * [General info](#general-info)
 * [Requirement and Setup](#setup)
 * [Technologies](#technologies)
+* [Data Analytics] (#analytics)
 * [Contributors](#contributors)
 
 
@@ -68,6 +69,10 @@ Go into the project directory and run the command:<br>
 * Amazon Web Services (AWS): RDS
 * Flask
 
+## Data Analytics
+
+At time of project delivery, our predictions are based on Random Forest Model. Information about decision can be found in [bilkesmodel](models/bikesmodel.ipynb).<br>
+Implementation of the model can be found in [dbmodel](models/dbmodel.ipynb). Run this file to have an updated version of individual station model for predictions.<br>
 
 ## Contributors
 
