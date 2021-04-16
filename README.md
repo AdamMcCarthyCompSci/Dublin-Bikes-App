@@ -8,7 +8,7 @@
 * [General info](#general-info)
 * [Requirement and Setup](#setup)
 * [Technologies](#technologies)
-* [Data Analytics] (#analytics)
+* [Data Analytics](#analytics)
 * [Contributors](#contributors)
 
 
